@@ -1,14 +1,39 @@
 import { StyledHeader } from '../../styles/Header/Header.styled';
+import { Search } from '../../styles/Header/Search.styled';
+import { SearchBar } from '../../styles/Header/SearchBar.styled';
+import { SearchIcon } from '../Icons/SearchIcon';
+import { DegreeToggleButton } from '../../styles/Header/DegreeToggleButton.styled';
 
-export const Header = () => {
+export const Header = ({
+  search,
+  setSearch,
+  unitType,
+  setUnitType,
+}) => {
+  const changeUnit = () => {
+    if (unitType === 'F') setUnitType('C');
+    else setUnitType('F');
+  };
   return (
     <StyledHeader>
-      <Search>
-        <SearchBar></SearchBar>
-        <SearchButton />
+      <Search
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <SearchBar htmlFor="City Search">
+          <SearchIcon />
+          <input
+            type="text"
+            placeholder="city"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onBlur={(e) => setSearch(e.target.value)}
+          />
+        </SearchBar>
       </Search>
 
-      <DegreeToggleButton />
+      <DegreeToggleButton onClick={changeUnit}>{unitType}</DegreeToggleButton>
     </StyledHeader>
   );
 };
