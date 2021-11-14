@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Header } from './components/Header/Header';
 import { geoLocationCall } from './utils/api-calls/geolocation-call';
 import { validateSearch } from './utils/validate-search';
+import { weatherDataCall } from './utils/api-calls/weather-data-call';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [unit, setUnit] = useState('F');
+  const [unit, setUnit] = useState('C');
   const [weatherData, setWeatherData] = useState('');
 
   const getWeatherData = async () => {
@@ -18,16 +19,15 @@ function App() {
     const [cityName, cityState] = location;
 
     try {
-      const { lat, lon, country } = await geoLocationCall(cityName, cityState);
+      const { lat, lon, country, name, state } = await geoLocationCall(
+        cityName,
+        cityState
+      );
 
-      console.log(lat, lon, country);
-      // Next lets start calling our weather data functions, for now lets just grab the default Imperial Units
+      weatherDataCall(lat, lon, unit);
     } catch (e) {
       console.log(e);
     }
-
-    // So now lets grab the general geo location, or possibly we can call the specific
-    // Geo location in this other function to make it one.
   };
 
   return (
