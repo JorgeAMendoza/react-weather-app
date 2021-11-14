@@ -9,6 +9,7 @@ export const Header = ({
   setSearch,
   unitType,
   setUnitType,
+  weatherCall,
 }) => {
   const changeUnit = () => {
     if (unitType === 'F') setUnitType('C');
@@ -19,6 +20,7 @@ export const Header = ({
       <Search
         onSubmit={(e) => {
           e.preventDefault();
+          weatherCall();
         }}
       >
         <SearchBar htmlFor="City Search">
