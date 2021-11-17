@@ -7,12 +7,14 @@ import { weatherDataCall } from './utils/api-calls/weather-data-call';
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [unit, setUnit] = useState('C');
-  const [weatherData, setWeatherData] = useState('');
+  const [searchLocation, setSearchLocation] = useState({});
+  const [currentWeather, setCurrentWeather] = useState({});
+  const [forecastWeather, setForecastWeather] = useState([]);
 
   const getWeatherData = async () => {
     const location = validateSearch(searchQuery);
     if (typeof location === 'string') {
-      console.log('ErrorS');
+      console.log('Error');
       return;
     }
 
@@ -23,8 +25,11 @@ function App() {
         cityName,
         cityState
       );
+      setSearchLocation(Object.assign({}, { country, name, state }));
 
-      weatherDataCall(lat, lon, unit);
+      const [current, forecast] = await weatherDataCall(lat, lon, unit);
+      setCurrentWeather(Object.assign({}, current));
+      setForecastWeather(forecast);
     } catch (e) {
       console.log(e);
     }
