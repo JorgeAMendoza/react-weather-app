@@ -4,6 +4,7 @@ import { geoLocationCall } from './utils/api-calls/geolocation-call';
 import { validateSearch } from './utils/validate-search';
 import { weatherDataCall } from './utils/api-calls/weather-data-call';
 import { CurrentWeather } from './components/Current Weather/CurrentWeather';
+import { WeatherForecast } from './components/Weather Forecast/WeatherForecast';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -48,7 +49,7 @@ function App() {
 
       {/* Extract the current weather Object and place into teh Current weather Component */}
       <CurrentWeather weatherData={currentWeather} location={searchLocation} />
-      {/* Extractg the forecat object and place into the forecat component.  */}
+      <WeatherForecast forecastData={forecastWeather} />
     </>
   );
 }
