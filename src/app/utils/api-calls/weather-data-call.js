@@ -1,3 +1,6 @@
+import { ForecastWeather } from '../weather-class/forecast-weather';
+import { CurrentWeather } from '../weather-class/current-weather';
+
 export const weatherDataCall = async (lat, lon, unit) => {
   const API_KEY = process.env.REACT_APP_API_KEY;
   const searchUnit = unit === 'F' ? 'imperial' : 'metric';
@@ -10,26 +13,26 @@ export const weatherDataCall = async (lat, lon, unit) => {
   const { current, daily } = weatherData;
   const firstDaily = daily[0];
 
-  const currentWeather = {
-    temp: current.temp,
-    min: firstDaily.temp.min,
-    max: firstDaily.temp.max,
-    status: current.weather[0].main,
-    statusDescription: current.weather[0].description,
-    humidity: current.humidity,
-    windSpeed: current.wind_speed,
-    weatherID: current.weather[0].id,
-    weatherIcon: current.weather[0].icon,
-  };
+  const currentWeather = new CurrentWeather(
+    current.temp,
+    firstDaily.temp.min,
+    firstDaily.temp.max,
+    current.weather[0].main,
+    current.weather[0].description,
+    current.humidity,
+    current.wind_speed,
+    current.weather[0].id,
+    current.weather[0].icon
+  );
 
   const forecastWeather = daily.slice(1).map((data) => {
-    return {
-      min: data.temp.min,
-      max: data.temp.max,
-      outlook: data.weather[0].main,
-      weatherID: data.weather[0].id,
-      iconID: data.weather[0].icon,
-    };
+    return new ForecastWeather(
+      data.temp.min,
+      data.temp.max,
+      data.weather[0].main,
+      data.weather[0].id,
+      data.weather[0].icon
+    );
   });
 
   return [currentWeather, forecastWeather];
