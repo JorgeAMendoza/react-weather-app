@@ -3,7 +3,6 @@ import { ForecastCard } from './ForecastCard';
 
 export const ForecastCards = ({ weatherData }) => {
   const dateString = DateString();
-  console.log(weatherData);
 
   const createForecastCards = (data) => {
     const dateObject = new Date();

@@ -8,7 +8,7 @@ import { WeatherForecast } from './components/Weather Forecast/WeatherForecast';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [unit, setUnit] = useState('C');
+  const [unit, setUnit] = useState('F');
   const [searchLocation, setSearchLocation] = useState({});
   const [currentWeather, setCurrentWeather] = useState({});
   const [forecastWeather, setForecastWeather] = useState([]);
@@ -30,10 +30,26 @@ function App() {
       setSearchLocation(Object.assign({}, { country, name, state }));
 
       const [current, forecast] = await weatherDataCall(lat, lon, unit);
-      setCurrentWeather(Object.assign({}, current));
+      setCurrentWeather(current);
       setForecastWeather(forecast);
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const changeUnit = () => {
+    if (unit === 'F') {
+      setUnit('C');
+      currentWeather.setToMetric();
+      for (const forecast of forecastWeather) {
+        forecast.setToMetric();
+      }
+    } else if (unit === 'C') {
+      setUnit('F');
+      currentWeather.setToImperial();
+      for (const forecast of forecastWeather) {
+        forecast.setToImperial();
+      }
     }
   };
 
@@ -43,11 +59,9 @@ function App() {
         search={searchQuery}
         setSearch={setSearchQuery}
         unitType={unit}
-        setUnitType={setUnit}
+        setUnitType={changeUnit}
         weatherCall={getWeatherData}
       />
-
-      {/* Extract the current weather Object and place into teh Current weather Component */}
       <CurrentWeather weatherData={currentWeather} location={searchLocation} />
       <WeatherForecast forecastData={forecastWeather} />
     </>

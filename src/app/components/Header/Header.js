@@ -12,8 +12,7 @@ export const Header = ({
   weatherCall,
 }) => {
   const changeUnit = () => {
-    if (unitType === 'F') setUnitType('C');
-    else setUnitType('F');
+    setUnitType();
   };
   return (
     <StyledHeader>
