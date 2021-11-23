@@ -15,13 +15,13 @@ export class CurrentWeather {
     weatherID,
     iconID
   ) {
-    this.temp = temp;
-    this.min = min;
-    this.max = max;
+    this.temp = Math.round(temp);
+    this.min = Math.round(min);
+    this.max = Math.round(max);
     this.stats = status;
     this.statusDescription = statusDescription;
     this.humidity = humidity;
-    this.wind = wind;
+    this.wind = Math.round(wind);
     this.weatherID = weatherID;
     this.iconID = iconID;
   }
