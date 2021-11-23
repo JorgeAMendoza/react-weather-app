@@ -20,12 +20,10 @@ export const CurrentWeather = ({ weatherData, location }) => {
         <Status status={weatherData.status} />
         <TemperatureOutlook min={weatherData.min} max={weatherData.max} />
         <OtherStats
-          windSpeed={weatherData.windSpeed}
+          windSpeed={weatherData.wind}
           humidity={weatherData.humidity}
         />
       </Container>
     </StyledCurrentWeather>
   );
 };
-
-// So for now, pass in the current weather object, and simply pass down the properties to each component
