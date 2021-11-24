@@ -1,3 +1,5 @@
+import { WeatherIcon } from '../Icons/WeatherIcon';
+
 export const ForecastCard = ({
   min,
   max,
@@ -8,11 +10,7 @@ export const ForecastCard = ({
 }) => {
   return (
     <div>
-      {/* Icon */}
-      {/* <Day>Example Date</Day>
-      <Outlook>Status</Outlook>
-      <Temps /> */}
-
+      <WeatherIcon iconID={iconID} weatherID={weatherID} outlook={outlook} />
       <p>{min}</p>
       <p>{max}</p>
       <p>{outlook}</p>
