@@ -5,6 +5,7 @@ import { Status } from './Status';
 import { TemperatureOutlook } from './TemperatureOutlook';
 import { OtherStats } from './OtherStats';
 import { Location } from './Location';
+import { WeatherIcon } from '../Icons/WeatherIcon';
 
 export const CurrentWeather = ({ weatherData, location }) => {
   return (
@@ -15,7 +16,11 @@ export const CurrentWeather = ({ weatherData, location }) => {
           state={location.state}
           country={location.country}
         />
-        {/* <WeatherIcon /> */}
+        <WeatherIcon
+          iconID={weatherData.iconID}
+          weatherID={weatherData.weatherID}
+          outlook={weatherData.statusDescription}
+        />
         <Temperature temperature={weatherData.temp} />
         <Status status={weatherData.status} />
         <TemperatureOutlook min={weatherData.min} max={weatherData.max} />
