@@ -19,7 +19,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     font-size: 1.6rem;
     min-height: 100vh;
     background-color: #ebebeb;
-    padding: 1rem 0;
+    padding: 2.5rem 0;
   }
 
   a,
@@ -41,6 +41,7 @@ export const GlobalStyles = styled.createGlobalStyle`
 
   input {
     font-family: inherit;
+    border: none;
   }
 
   p,
