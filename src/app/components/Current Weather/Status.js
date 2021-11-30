@@ -1,3 +1,5 @@
-export const Status = ({ description }) => {
-  return <p>{description}</p>;
+import { StatusStyled } from '../../styles/CurrentWeather/Status.styled';
+
+export const Status = ({ status }) => {
+  return <StatusStyled>{status}</StatusStyled>;
 };
