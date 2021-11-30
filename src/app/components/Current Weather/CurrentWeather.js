@@ -6,29 +6,32 @@ import { TemperatureOutlook } from './TemperatureOutlook';
 import { OtherStats } from './OtherStats';
 import { Location } from './Location';
 import { WeatherIcon } from '../Icons/WeatherIcon';
+import { CurrentWeatherIcon } from '../../styles/CurrentWeather/CurrentWeatherIcon.styled';
 
 export const CurrentWeather = ({ weatherData, location }) => {
   return (
-    <StyledCurrentWeather>
-      <Container>
+    <Container>
+      <StyledCurrentWeather>
         <Location
           city={location.name}
           state={location.state}
           country={location.country}
         />
-        <WeatherIcon
-          iconID={weatherData.iconID}
-          weatherID={weatherData.weatherID}
-          outlook={weatherData.statusDescription}
-        />
+        <CurrentWeatherIcon>
+          <WeatherIcon
+            iconID={weatherData.iconID}
+            weatherID={weatherData.weatherID}
+            outlook={weatherData.statusDescription}
+          />
+        </CurrentWeatherIcon>
         <Temperature temperature={weatherData.temp} />
-        <Status status={weatherData.status} />
+        <Status status={weatherData.statusDescription} />
         <TemperatureOutlook min={weatherData.min} max={weatherData.max} />
         <OtherStats
           windSpeed={weatherData.wind}
           humidity={weatherData.humidity}
         />
-      </Container>
-    </StyledCurrentWeather>
+      </StyledCurrentWeather>
+    </Container>
   );
 };

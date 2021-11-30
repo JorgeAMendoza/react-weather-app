@@ -1,7 +1,8 @@
+import { LocationStyled } from '../../styles/CurrentWeather/Location.styled';
 export const Location = ({ city, state, country }) => {
   return (
-    <p>
+    <LocationStyled>
       {city}, {state ? state : country}
-    </p>
+    </LocationStyled>
   );
 };

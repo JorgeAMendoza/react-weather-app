@@ -1,6 +1,8 @@
+import { TemperatureOutlookStyled } from '../../styles/CurrentWeather/TemperatureOutlook.styled';
+
 export const TemperatureOutlook = ({ min, max }) => {
   return (
-    <div>
+    <TemperatureOutlookStyled>
       <div>
         <p>Low</p>
         <p>{min}</p>
@@ -9,6 +11,6 @@ export const TemperatureOutlook = ({ min, max }) => {
         <p>High</p>
         <p>{max}</p>
       </div>
-    </div>
+    </TemperatureOutlookStyled>
   );
 };
