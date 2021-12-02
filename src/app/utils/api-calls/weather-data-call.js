@@ -25,7 +25,7 @@ export const weatherDataCall = async (lat, lon, unit) => {
     current.weather[0].icon
   );
 
-  const forecastWeather = daily.slice(1).map((data) => {
+  const forecastWeather = daily.slice(1,6).map((data) => {
     return new ForecastWeather(
       data.temp.min,
       data.temp.max,
