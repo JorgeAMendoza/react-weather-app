@@ -1,4 +1,9 @@
 import { WeatherIcon } from '../Icons/WeatherIcon';
+import { ForecastTemperature } from './ForecastCard/ForecastTemperature';
+import { ForecastDate } from './ForecastCard/ForecastDate';
+import { ForecastOutlook } from './ForecastCard/ForecastOutlook';
+import { ForecastCardStyled } from '../../styles/Weather Forecast/ForecastCard/ForecastCard.styled';
+import { IconContainer } from '../../styles/Weather Forecast/ForecastCard/IconContainer.styled';
 
 export const ForecastCard = ({
   min,
@@ -9,14 +14,13 @@ export const ForecastCard = ({
   weatherID,
 }) => {
   return (
-    <div>
-      <WeatherIcon iconID={iconID} weatherID={weatherID} outlook={outlook} />
-      <p>{min}</p>
-      <p>{max}</p>
-      <p>{outlook}</p>
-      <p>{iconID}</p>
-      <p>{date}</p>
-      <p>{weatherID}</p>
-    </div>
+    <ForecastCardStyled>
+      <IconContainer>
+        <WeatherIcon iconID={iconID} weatherID={weatherID} outlook={outlook} />
+      </IconContainer>
+      <ForecastDate date={date} />
+      <ForecastTemperature min={min} max={max} />
+      <ForecastOutlook outlook={outlook} />
+    </ForecastCardStyled>
   );
 };
