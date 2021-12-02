@@ -7,7 +7,6 @@ export const ForecastCardsStyled = styled.div`
   gap: 1.5rem;
 
   @media ${device.laptop} {
-    grid-template-columns: repeat(7, 1fr);
-    border: 1px solid black;
+    grid-template-columns: repeat(5, 1fr);
   }
 `;

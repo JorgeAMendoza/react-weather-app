@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../utils/device';
 
 export const ForecastTemperatureStyled = styled.div`
   grid-area: temp;
@@ -11,5 +12,9 @@ export const ForecastTemperatureStyled = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  @media ${device.laptop} {
+    margin-top: 6rem;
   }
 `;
