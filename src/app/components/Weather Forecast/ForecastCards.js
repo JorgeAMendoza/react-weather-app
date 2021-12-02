@@ -1,5 +1,6 @@
 import { DateString } from '../../utils/date/date-string';
 import { ForecastCard } from './ForecastCard';
+import { ForecastCardsStyled } from '../../styles/Weather Forecast/ForecastCard/ForecastCards.styled';
 
 export const ForecastCards = ({ weatherData }) => {
   const dateString = DateString();
@@ -23,9 +24,8 @@ export const ForecastCards = ({ weatherData }) => {
     });
   };
   return (
-    <div>
-      <p>Hello</p>
+    <ForecastCardsStyled>
       {createForecastCards(weatherData)}
-    </div>
+    </ForecastCardsStyled>
   );
 };

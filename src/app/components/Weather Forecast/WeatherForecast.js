@@ -1,10 +1,13 @@
 import { WeatherForecastStyled } from '../../styles/Weather Forecast/WeatherForecast.styled';
 import { ForecastCards } from './ForecastCards';
-export const WeatherForecast = ({forecastData}) => {
+import { Container } from '../../styles/utils/Container.styled';
+export const WeatherForecast = ({ forecastData }) => {
   return (
-    <WeatherForecastStyled>
-      <h2>Five Day Forecast</h2>
-      <ForecastCards weatherData = {forecastData} />
-    </WeatherForecastStyled>
+    <Container>
+      <WeatherForecastStyled>
+        <h2>Five Day Forecast</h2>
+        <ForecastCards weatherData={forecastData} />
+      </WeatherForecastStyled>
+    </Container>
   );
 };
