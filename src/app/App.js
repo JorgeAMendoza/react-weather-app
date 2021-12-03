@@ -7,6 +7,7 @@ import { CurrentWeather } from './components/Current Weather/CurrentWeather';
 import { WeatherForecast } from './components/Weather Forecast/WeatherForecast';
 import { ErrorModal } from './components/ErrorModal/ErrorModal';
 import { GlobalStyles } from './styles/utils/Global.styled';
+import { ContentContainer } from './styles/utils/ContentContainer.styled';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -62,16 +63,21 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Header
-        search={searchQuery}
-        setSearch={setSearchQuery}
-        unitType={unit}
-        setUnitType={changeUnit}
-        weatherCall={getWeatherData}
-      />
-      <CurrentWeather weatherData={currentWeather} location={searchLocation} />
-      <WeatherForecast forecastData={forecastWeather} />
-      <ErrorModal errorMessage={errorMessage} show={showModal} />
+      <ContentContainer>
+        <Header
+          search={searchQuery}
+          setSearch={setSearchQuery}
+          unitType={unit}
+          setUnitType={changeUnit}
+          weatherCall={getWeatherData}
+        />
+        <CurrentWeather
+          weatherData={currentWeather}
+          location={searchLocation}
+        />
+        <WeatherForecast forecastData={forecastWeather} />
+        <ErrorModal errorMessage={errorMessage} show={showModal} />
+      </ContentContainer>
     </>
   );
 }

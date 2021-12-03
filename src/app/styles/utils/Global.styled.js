@@ -19,7 +19,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     font-size: 1.6rem;
     min-height: 100vh;
     background-color: #ebebeb;
-    padding: 2.5rem 0;
   }
 
   a,
