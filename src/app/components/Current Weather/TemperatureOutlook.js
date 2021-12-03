@@ -5,11 +5,11 @@ export const TemperatureOutlook = ({ min, max }) => {
     <TemperatureOutlookStyled>
       <div>
         <p>Low</p>
-        <p>{min}</p>
+        <p>{min}°</p>
       </div>
       <div>
         <p>High</p>
-        <p>{max}</p>
+        <p>{max}°</p>
       </div>
     </TemperatureOutlookStyled>
   );

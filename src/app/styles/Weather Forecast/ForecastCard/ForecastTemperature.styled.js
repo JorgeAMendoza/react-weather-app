@@ -12,6 +12,11 @@ export const ForecastTemperatureStyled = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-weight: bold;
+
+    @media ${device.laptop} {
+      font-size: 2rem;
+    }
   }
 
   @media ${device.laptop} {
