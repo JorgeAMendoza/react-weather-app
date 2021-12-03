@@ -26,5 +26,6 @@ export const StatStyled = styled.div`
   p:nth-of-type(2) {
     grid-area: value;
     text-align: left;
+    font-weight: lighter;
   }
 `;
