@@ -8,7 +8,7 @@ import { Location } from './Location';
 import { WeatherIcon } from '../Icons/WeatherIcon';
 import { CurrentWeatherIcon } from '../../styles/CurrentWeather/CurrentWeatherIcon.styled';
 
-export const CurrentWeather = ({ weatherData, location }) => {
+export const CurrentWeather = ({ weatherData, location, unit }) => {
   return (
     <Container>
       <StyledCurrentWeather>
@@ -30,6 +30,7 @@ export const CurrentWeather = ({ weatherData, location }) => {
         <OtherStats
           windSpeed={weatherData.wind}
           humidity={weatherData.humidity}
+          unit={unit}
         />
       </StyledCurrentWeather>
     </Container>

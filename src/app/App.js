@@ -74,6 +74,7 @@ function App() {
         <CurrentWeather
           weatherData={currentWeather}
           location={searchLocation}
+          unit={unit}
         />
         <WeatherForecast forecastData={forecastWeather} />
         <ErrorModal errorMessage={errorMessage} show={showModal} />
