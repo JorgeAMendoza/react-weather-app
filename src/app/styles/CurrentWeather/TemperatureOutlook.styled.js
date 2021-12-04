@@ -9,6 +9,11 @@ export const TemperatureOutlookStyled = styled.div`
 
   @media ${device.laptop} {
     font-size: 2rem;
+
+    div {
+      display: flex;
+      gap: 1rem;
+    }
   }
 
   p:nth-child(2) {
