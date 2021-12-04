@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../utils/device';
 
 export const StyledCurrentWeather = styled.main`
   min-height: 40vh;
@@ -19,4 +20,21 @@ export const StyledCurrentWeather = styled.main`
     'status status'
     'low-high low-high'
     'stats stats';
+
+  @media ${device.laptop} {
+    grid-template-areas:
+      'icon city'
+      'icon temperature'
+      'icon status'
+      'icon low-high'
+      'icon stats';
+    gap: 0.5rem;
+    place-content: center;
+    min-height: 40rem;
+
+    & > * {
+      justify-self: start;
+      align-self: center;
+    }
+  }
 `;

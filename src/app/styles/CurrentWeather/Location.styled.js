@@ -8,5 +8,6 @@ export const LocationStyled = styled.p`
 
   @media ${device.laptop} {
     font-size: 2.8rem;
+    justify-self: start;
   }
 `;
