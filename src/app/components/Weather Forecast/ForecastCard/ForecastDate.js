@@ -1,9 +1,14 @@
 import { ForecastDateStyled } from '../../../styles/Weather Forecast/ForecastCard/ForecastDate.styled';
 
 export const ForecastDate = ({ date }) => {
+  const noCommaDate = date.replace(/,/, '').split(' ');
+  const [day, month, dateNum] = noCommaDate;
   return (
     <ForecastDateStyled>
-      <p>{date}</p>
+      <p>
+        <span>{day}, </span>
+        {month} {dateNum}
+      </p>
     </ForecastDateStyled>
   );
 };

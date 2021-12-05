@@ -9,6 +9,10 @@ export const ForecastDateStyled = styled.div`
 
     @media ${device.laptop} {
       font-size: 2rem;
+
+      span {
+        display: block;
+      }
     }
   }
 `;
