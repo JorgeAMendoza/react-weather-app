@@ -4,7 +4,6 @@ import windIcon from '../../../assets/weather-icons/wind.svg';
 import humidIcon from '../../../assets/weather-icons/humidity.svg';
 
 export const OtherStats = ({ windSpeed, humidity, unit }) => {
-  console.log(unit);
   return (
     <OtherStatsStyled>
       <Stat

@@ -8,6 +8,10 @@ import { WeatherForecast } from './components/Weather Forecast/WeatherForecast';
 import { ErrorModal } from './components/ErrorModal/ErrorModal';
 import { GlobalStyles } from './styles/utils/Global.styled';
 import { ContentContainer } from './styles/utils/ContentContainer.styled';
+import {
+  currentWeatherConvert,
+  forecastWeatherConvert,
+} from './utils/unit-conversion/unit-convert';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,19 +49,17 @@ function App() {
   };
 
   const changeUnit = () => {
-    if (unit === 'F') {
-      setUnit('C');
-      currentWeather.setToMetric();
-      for (const forecast of forecastWeather) {
-        forecast.setToMetric();
-      }
-    } else if (unit === 'C') {
-      setUnit('F');
-      currentWeather.setToImperial();
-      for (const forecast of forecastWeather) {
-        forecast.setToImperial();
-      }
-    }
+    if (unit === 'F') setUnit('C');
+    else setUnit('F');
+
+    const newCurrentTemps = currentWeatherConvert(currentWeather, unit);
+    const newForecastTemps = forecastWeather.map((forecast) => {
+      const newTemps = forecastWeatherConvert(forecast, unit);
+      return Object.assign(forecast, newTemps);
+    });
+
+    setCurrentWeather(Object.assign(currentWeather, newCurrentTemps));
+    setForecastWeather(newForecastTemps);
   };
 
   return (
