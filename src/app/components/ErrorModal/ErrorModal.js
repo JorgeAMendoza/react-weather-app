@@ -5,7 +5,7 @@ export const ErrorModal = ({ errorMessage, show }) => {
 
   return (
     <ErrorModalStyled>
-      <p>{errorMessage}</p>
+      <p aria-live="polite">{errorMessage}</p>
     </ErrorModalStyled>
   );
 };

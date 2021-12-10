@@ -19,6 +19,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     font-size: 1.6rem;
     min-height: 100vh;
     background-color: #ebebeb;
+    position: relative;
   }
 
   a,
