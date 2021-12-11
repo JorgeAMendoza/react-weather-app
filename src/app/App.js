@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     getWeatherData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getWeatherData = async () => {
@@ -47,6 +47,7 @@ function App() {
 
       setShowModal(false);
     } catch (e) {
+      console.log(e);
       setErrorMessage(e.message);
       setShowModal(true);
     }
