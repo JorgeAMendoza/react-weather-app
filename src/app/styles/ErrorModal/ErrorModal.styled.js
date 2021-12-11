@@ -15,6 +15,6 @@ export const ErrorModalStyled = styled.div`
   border-radius: 20px 20px 0 0;
   transition: transform 0.5s ease-in;
   transform: translateY(
-    ${({ display }) => (display === 'false' ? '0%' : '100%')}
+    ${({ display }) => (display === 'true' ? '0%' : '100%')}
   );
 `;
