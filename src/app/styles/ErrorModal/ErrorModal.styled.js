@@ -14,5 +14,7 @@ export const ErrorModalStyled = styled.div`
   align-items: center;
   border-radius: 20px 20px 0 0;
   transition: transform 0.5s ease-in;
-  transform: translateY(${({ display }) => (display ? '0%' : '100%')});
+  transform: translateY(
+    ${({ display }) => (display === 'false' ? '0%' : '100%')}
+  );
 `;
