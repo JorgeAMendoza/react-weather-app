@@ -13,4 +13,6 @@ export const ErrorModalStyled = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 20px 20px 0 0;
+  transition: transform 0.5s ease-in;
+  transform: translateY(${({ display }) => (display ? '0%' : '100%')});
 `;

@@ -1,11 +1,10 @@
 import { ErrorModalStyled } from '../../styles/ErrorModal/ErrorModal.styled';
 
 export const ErrorModal = ({ errorMessage, show }) => {
-  if (!show) return null;
-
+  const message = errorMessage;
   return (
-    <ErrorModalStyled>
-      <p aria-live="polite">{errorMessage}</p>
+    <ErrorModalStyled display={show}>
+      <p aria-live="polite">{message}</p>
     </ErrorModalStyled>
   );
 };
