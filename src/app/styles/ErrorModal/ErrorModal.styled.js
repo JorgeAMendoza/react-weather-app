@@ -1,11 +1,18 @@
 import styled from 'styled-components';
 
 export const ErrorModalStyled = styled.div`
-  border: 1px solid black;
-  width: 500px;
-  height: 500px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  background-color: red;
+  width: 100%;
+  height: 5rem;
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  color: red;
+  text-transform: capitalize;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px 20px 0 0;
+  transition: transform 0.5s ease-in;
+  transform: translateY(${({ display }) => (display ? '0%' : '100%')});
 `;

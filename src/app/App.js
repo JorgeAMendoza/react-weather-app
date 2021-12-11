@@ -40,7 +40,6 @@ function App() {
       setCurrentWeather(current);
       setForecastWeather(forecast);
 
-      setErrorMessage('');
       setShowModal(false);
     } catch (e) {
       setErrorMessage(e.message);
@@ -79,7 +78,10 @@ function App() {
           unit={unit}
         />
         <WeatherForecast forecastData={forecastWeather} />
-        <ErrorModal errorMessage={errorMessage} show={showModal} />
+        <ErrorModal
+          errorMessage={errorMessage}
+          show={showModal}
+        />
       </ContentContainer>
     </>
   );
