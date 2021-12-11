@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from './components/Header/Header';
 import { geoLocationCall } from './utils/api-calls/geolocation-call';
 import { validateSearch } from './utils/validate-search';
@@ -14,13 +14,18 @@ import {
 } from './utils/unit-conversion/unit-convert';
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('Dallas, TX');
   const [unit, setUnit] = useState('F');
   const [searchLocation, setSearchLocation] = useState({});
   const [currentWeather, setCurrentWeather] = useState({});
   const [forecastWeather, setForecastWeather] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    getWeatherData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getWeatherData = async () => {
     try {
@@ -78,10 +83,7 @@ function App() {
           unit={unit}
         />
         <WeatherForecast forecastData={forecastWeather} />
-        <ErrorModal
-          errorMessage={errorMessage}
-          show={showModal}
-        />
+        <ErrorModal errorMessage={errorMessage} show={showModal} />
       </ContentContainer>
     </>
   );
