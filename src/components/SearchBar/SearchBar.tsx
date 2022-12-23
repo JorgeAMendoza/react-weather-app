@@ -14,7 +14,7 @@ const SearchBar = () => {
     formState: { errors },
   } = useForm<SearchFormProps>({
     defaultValues: {
-      searchQuery: '',
+      searchQuery: 'Dallas, Texas',
     },
   });
 
