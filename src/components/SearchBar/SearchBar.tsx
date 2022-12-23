@@ -35,6 +35,7 @@ const SearchBar = () => {
             {...register('searchQuery', {
               pattern:
                 /^[A-Za-z.' ]+$|^[A-Za-z.' ]+$|^[A-Za-z.' ]+, [A-Za-z]+$/gi,
+              required: true,
             })}
             aria-invalid={errors.searchQuery ? 'true' : 'false'}
           />
