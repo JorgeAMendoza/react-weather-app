@@ -35,6 +35,7 @@ const SearchBar = ({ setSearch }: SearchBarProps) => {
       cityState[1] = cityState[1].replace(whiteSpaceRegex, '');
 
       setSearch(`${cityState[0]},${cityState[1]},US`);
+      return;
     }
 
     console.log('somethign very wrong!');
