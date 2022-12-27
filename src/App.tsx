@@ -8,7 +8,8 @@ function App() {
   const [search, setSearch] = useState('Dallas, Texas');
   const weatherData = useQuery({
     queryKey: ['weather', search],
-    queryFn: () => fetchGeoLocation(search),
+    queryFn: ({ signal }) => fetchGeoLocation(search, signal),
+    refetchOnWindowFocus: false,
   });
 
   // state to keep track of farheheit, and celcius

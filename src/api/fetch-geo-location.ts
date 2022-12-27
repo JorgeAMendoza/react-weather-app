@@ -1,7 +1,9 @@
 import { API_KEY } from '../utils/config';
 
-const fetchGeoLocation = async (searchQuery: string) => {
-  console.log(API_KEY);
+const fetchGeoLocation = async (
+  searchQuery: string,
+  signal: AbortSignal | undefined
+) => {
   const geoDataAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${searchQuery}&limit=1&appid=${API_KEY}`;
 
   fetch(geoDataAPI)
