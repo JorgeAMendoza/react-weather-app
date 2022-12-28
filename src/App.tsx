@@ -6,15 +6,15 @@ import fetchGeoLocation from './api/fetch-geo-location';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
-  const weatherData = useQuery({
+  const { data: weatherData } = useQuery({
     queryKey: ['weather', search],
-    queryFn: ({ signal }) => fetchGeoLocation(search, signal),
+    queryFn: () => fetchGeoLocation(search),
     refetchOnWindowFocus: false,
+    retry: false,
+    keepPreviousData: true,
   });
 
   // state to keep track of farheheit, and celcius
-  // use of tanstack query hook
-  // const weatherData = useQuery({queryKey: ''})
 
   // variable that extracts the forecast data
   // varaible that extracts teh day data
@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <SearchBar setSearch={setSearch} />
-      <p>{weatherData.data}</p>
+      <p>{weatherData}</p>
     </div>
   );
 }
