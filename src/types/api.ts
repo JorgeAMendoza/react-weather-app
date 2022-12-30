@@ -28,7 +28,7 @@ export interface CurrentWeather {
   };
 }
 
-interface ForecastWeather {
+export interface ForecastWeather {
   temp: {
     min: number;
     max: number;
