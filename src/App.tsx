@@ -3,7 +3,7 @@ import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
 import { useQuery } from '@tanstack/react-query';
 import { WeatherData } from './types/api';
-import fetchWeatherData from './utils/fetchWeatherData';
+import fetchWeatherData from './utils/fetch-weather-data';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
