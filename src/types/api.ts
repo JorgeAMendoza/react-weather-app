@@ -1,13 +1,14 @@
-interface GeoData {
-  name: string;
-  local_names: { [k: string]: string };
-  lat: string;
-  lon: string;
-  country: string;
-  state: string;
-}
-
-export interface CurrentWeather {
+export interface OneWeatherCall {
+  city: string;
+  location: string;
+  current: {
+    temp: number;
+    min_temp: number;
+    max_temp: number;
+    feels_like: number;
+    humidity: number;
+    wind_speed: number;
+  };
   weather: [
     {
       id: number;
@@ -16,38 +17,22 @@ export interface CurrentWeather {
       icon: string;
     }
   ];
-  main: {
-    temp: number;
-    temp_min: number;
-    temp_max: string;
-    humidity: number;
-  };
-  wind: {
-    speed: number;
-    deg: number;
-  };
+  weekForecast: DailyWeather[];
 }
 
-export interface ForecastWeather {
+interface DailyWeather {
   temp: {
+    day: number;
     min: number;
     max: number;
   };
+  humidity: number;
   weather: [
     {
       id: number;
       main: string;
       description: string;
-      icon: '10d';
+      icon: string;
     }
   ];
 }
-
-export interface WeatherData {
-  city: string;
-  location: string;
-  currentWeather: CurrentWeather;
-  forcastWeather: ForecastWeather[];
-}
-
-export type GeoDataResponse = [GeoData];
