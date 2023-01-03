@@ -7,7 +7,6 @@ export default async function fetchWeather(request, response) {
   const { data: geoResponse } = await axios.get(geoDataAPI);
 
   if (geoResponse.length === 0) {
-    console.log('returning error');
     return response.status(404).json({
       error: 'city not found',
     });
@@ -53,9 +52,7 @@ export default async function fetchWeather(request, response) {
     weekForecast: fiveDayForcast,
   };
 
-  console.log(oneWeatherCall);
-
   response.status(200).json({
-    data: weatherResponse,
+    data: oneWeatherCall,
   });
 }

@@ -7,18 +7,15 @@ import fetchWeatherData from './utils/fetch-weather-data';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
-  const { data: weatherData } = useQuery({
+  const { data: weatherData, error } = useQuery({
     queryKey: ['weather', search],
-    queryFn: () => fetchWeatherData(search),
+    queryFn: (): Promise<OneWeatherCall> => fetchWeatherData(search),
     refetchOnWindowFocus: false,
     retry: false,
     keepPreviousData: true,
   });
 
   // state to keep track of farheheit, and celcius
-
-  // variable that extracts the forecast data
-  // varaible that extracts teh day data=
 
   return (
     <div className="App">
