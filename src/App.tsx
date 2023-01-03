@@ -1,28 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
-import { useQuery } from '@tanstack/react-query';
-import fetchGeoLocation from './api/fetch-geo-location';
+import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query';
+import { OneWeatherCall } from './types/api';
+import fetchWeatherData from './utils/fetch-weather-data';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
-  const { data: weatherData } = useQuery({
+  const queryClient = useQueryClient();
+  const { data, error } = useQuery<OneWeatherCall, Error>({
     queryKey: ['weather', search],
-    queryFn: () => fetchGeoLocation(search),
+    queryFn: (): Promise<OneWeatherCall> => fetchWeatherData(search),
     refetchOnWindowFocus: false,
     retry: false,
     keepPreviousData: true,
+    onError() {
+      console.log('error happended');
+      queryClient.setQueriesData(['weather', search], data);
+    },
   });
-
-  // state to keep track of farheheit, and celcius
-
-  // variable that extracts the forecast data
-  // varaible that extracts teh day data
 
   return (
     <div className="App">
       <SearchBar setSearch={setSearch} />
-      <p>{weatherData}</p>
+      {error && <p>{error.message}</p>}
     </div>
   );
 }

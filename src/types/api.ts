@@ -1,11 +1,38 @@
-interface GeoData {
-  name: string;
-  local_names: { [k: string]: string };
-  lat: string;
-  lon: string;
-  country: string;
-  state: string;
+export interface OneWeatherCall {
+  city: string;
+  location: string;
+  current: {
+    temp: number;
+    min_temp: number;
+    max_temp: number;
+    feels_like: number;
+    humidity: number;
+    wind_speed: number;
+  };
+  weather: [
+    {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    }
+  ];
+  weekForecast: DailyWeather[];
 }
 
-// api is set to respond with only one geo data, so response will be a single tuple of geo data
-export type GeoDataResponse = [GeoData];
+interface DailyWeather {
+  temp: {
+    day: number;
+    min: number;
+    max: number;
+  };
+  humidity: number;
+  weather: [
+    {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    }
+  ];
+}
