@@ -16,11 +16,7 @@ const fetchWeatherData = async (
 
     return data;
   } catch (e) {
-    console.log(e);
-    let message = '';
-    if (e instanceof AxiosError) message = e.response?.data;
-    else message = 'something went wrong';
-    throw new Error(message);
+    throw new Error('city not found');
   }
 };
 

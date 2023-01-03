@@ -7,7 +7,7 @@ import fetchWeatherData from './utils/fetch-weather-data';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
-  const { data: weatherData, error } = useQuery({
+  const { data: weatherData, error } = useQuery<OneWeatherCall, Error>({
     queryKey: ['weather', search],
     queryFn: (): Promise<OneWeatherCall> => fetchWeatherData(search),
     refetchOnWindowFocus: false,
@@ -15,11 +15,10 @@ function App() {
     keepPreviousData: true,
   });
 
-  // state to keep track of farheheit, and celcius
-
   return (
     <div className="App">
       <SearchBar setSearch={setSearch} />
+      {error && <p>{error.message}</p>}
     </div>
   );
 }
