@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 export default async function fetchWeather(request, response) {
+  console.log('i got called!');
   const geoDataAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${request.query.location}&limit=1&appid=${process.env.API_KEY}`;
 
   const { data: geoResponse } = await axios.get(geoDataAPI);

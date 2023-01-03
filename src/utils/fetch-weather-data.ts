@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { OneWeatherCall } from '../types/api';
 
 const fetchWeatherData = async (
