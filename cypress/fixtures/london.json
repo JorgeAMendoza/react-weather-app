@@ -1,1 +1,77 @@
-{"data":{"city":"London","location":"GB","current":{"temp":286.08,"min_temp":283.84,"max_temp":286.11,"feels_like":285.52,"humidity":80,"wind_speed":8.75},"weather":{"id":804,"main":"Clouds","description":"overcast clouds","icon":"04d"},"weekForecast":[{"temp":{"day":283.91,"min":282.61,"max":285.22},"humidity":87,"weather":{"id":804,"main":"Clouds","description":"overcast clouds","icon":"04d"}},{"temp":{"day":282.44,"min":281.14,"max":284.83},"humidity":79,"weather":{"id":501,"main":"Rain","description":"moderate rain","icon":"10d"}},{"temp":{"day":282.53,"min":280.72,"max":284.58},"humidity":84,"weather":{"id":500,"main":"Rain","description":"light rain","icon":"10d"}},{"temp":{"day":281.71,"min":279.13,"max":281.71},"humidity":74,"weather":{"id":500,"main":"Rain","description":"light rain","icon":"10d"}},{"temp":{"day":280.43,"min":278.31,"max":281.16},"humidity":66,"weather":{"id":500,"main":"Rain","description":"light rain","icon":"10d"}}]}}
+{
+  "data": {
+    "city": "London",
+    "location": "GB",
+    "current": {
+      "temp": 286.08,
+      "min_temp": 283.84,
+      "max_temp": 286.11,
+      "feels_like": 285.52,
+      "humidity": 80,
+      "wind_speed": 8.75
+    },
+    "weather": {
+      "id": 804,
+      "main": "Clouds",
+      "description": "overcast clouds",
+      "icon": "04d"
+    },
+    "weekForecast": [
+      {
+        "temp": { "day": 283.91, "min": 282.61, "max": 285.22 },
+        "humidity": 87,
+        "weather": {
+          "id": 804,
+          "main": "Clouds",
+          "description": "overcast clouds",
+          "icon": "04d"
+        },
+        "date": "January 1st"
+      },
+      {
+        "temp": { "day": 282.44, "min": 281.14, "max": 284.83 },
+        "humidity": 79,
+        "weather": {
+          "id": 501,
+          "main": "Rain",
+          "description": "moderate rain",
+          "icon": "10d"
+        },
+        "date": "January 2nd"
+      },
+      {
+        "temp": { "day": 282.53, "min": 280.72, "max": 284.58 },
+        "humidity": 84,
+        "weather": {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        },
+        "date": "January 3rd"
+      },
+      {
+        "temp": { "day": 281.71, "min": 279.13, "max": 281.71 },
+        "humidity": 74,
+        "weather": {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        },
+        "date": "January 4th"
+      },
+      {
+        "temp": { "day": 280.43, "min": 278.31, "max": 281.16 },
+        "humidity": 66,
+        "weather": {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        },
+        "date": "January 5th"
+      }
+    ]
+  }
+}
