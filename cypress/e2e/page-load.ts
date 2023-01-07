@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import { forEach } from 'cypress/types/lodash';
-
 describe('initial page load', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -22,14 +20,6 @@ describe('initial page load', () => {
   cy.intercept('http://localhost:3000/api/weather?location=Dallas,+Texas', {
     fixture: 'dallas.json',
   }).as('api');
-
-  // cy.intercept('http://localhost:3000/api/weather?location=London', {
-  //   fixture: 'london.json',
-  // }).as('api');
-
-  // cy.intercept('http://localhost:3000/api/weather?location=hou,te,US', {
-  //   fixture: 'error.json',
-  // }).as('api');
 
   it('unit button begins in metric system, Fahrenheit', () => {
     cy.get('@unitButton').should('contain.text', 'F');
@@ -92,6 +82,47 @@ describe('initial page load', () => {
         cy.wrap(element[4])
           .get('[data-cy="forecastOutlook"]')
           .should('contain.text', `clear sky`);
+      });
+  });
+
+  it('five day forecast for dallas,texas displayed, correct temps displayed', () => {
+    cy.get('@forecastContainer')
+      .children()
+      .then((element) => {
+        cy.wrap(element[0])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `49`);
+        cy.wrap(element[0])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `62`);
+
+        cy.wrap(element[1])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `51`);
+        cy.wrap(element[1])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `70`);
+
+        cy.wrap(element[2])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `59`);
+        cy.wrap(element[2])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `67`);
+
+        cy.wrap(element[3])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `50`);
+        cy.wrap(element[3])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `62`);
+
+        cy.wrap(element[4])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `50`);
+        cy.wrap(element[4])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `66`);
       });
   });
 });
