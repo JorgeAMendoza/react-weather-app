@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('initial page load', () => {
+describe('searching for new city, successful search', () => {
   beforeEach(() => {
     cy.visit('/');
     cy.get('[data-cy="unitButton"]').as('unitButton');
@@ -18,26 +18,32 @@ describe('initial page load', () => {
   });
 
   cy.intercept('http://localhost:3000/api/weather?location=Dallas,+Texas', {
+    statusCode: 200,
     fixture: 'dallas.json',
   }).as('api');
 
-  it('unit button begins in metric system, Fahrenheit', () => {
-    cy.get('@unitButton').should('contain.text', 'F');
-  });
+  cy.intercept('http://localhost:3000/api/weather?location=London', {
+    statusCode: 200,
+    fixture: 'london.json',
+  }).as('api');
 
-  it('current weather data for dallas,texas is displayed', () => {
-    cy.get('@location').should('contain.text', 'Dallas, TX');
-    cy.get('@currentTemperature').should('contain.text', '40');
-    cy.get('@currentLowTemp').should('contain.text', '40');
-    cy.get('@currentHighTemp').should('contain.text', '60');
-    cy.get('@windSpeed').should('contain.text', '6mph');
-    cy.get('@humidity').should('contain.text', '81%');
+  it('search for "london", current weather data is retrieved"', () => {
+    cy.get('@citySearch').find('input').type('london{enter}');
+
+    // some animtation plays
+    cy.get('@location').should('contain.text', 'London, GB');
+    cy.get('@currentTemperature').should('contain.text', '55');
+    cy.get('@currentLowTemp').should('contain.text', '51');
+    cy.get('@currentHighTemp').should('contain.text', '55');
+    cy.get('@windSpeed').should('contain.text', '20mph');
+    cy.get('@humidity').should('contain.text', '80%');
     cy.get('@currentWeatherIcon')
       .should('have.attr', 'src')
-      .should('include', 'night-clear');
+      .should('include', 'overcast-clouds');
   });
 
-  it('five day forcast for dallas,texas is displayed, dates verified', () => {
+  it('five day forecast for london is displayed, dates verified', () => {
+    cy.get('@citySearch').find('input').type('london{enter}');
     cy.get('@forecastContainer').children().should('have.length', 5);
 
     cy.get('@forecastContainer')
@@ -61,7 +67,8 @@ describe('initial page load', () => {
       });
   });
 
-  it('five day forecast for dallas,texas is displayed, outlook verified', () => {
+  it('five day forecast for london is displayed, outlook verified', () => {
+    cy.get('@citySearch').find('input').type('london{enter}');
     cy.get('@forecastContainer').children().should('have.length', 5);
 
     cy.get('@forecastContainer')
@@ -69,23 +76,26 @@ describe('initial page load', () => {
       .then((element) => {
         cy.wrap(element[0])
           .get('[data-cy="forecastOutlook"]')
-          .should('contain.text', `broken clouds`);
+          .should('contain.text', `overcast clouds`);
         cy.wrap(element[1])
           .get('[data-cy="forecastOutlook"]')
-          .should('contain.text', `scattered clouds`);
+          .should('contain.text', `moderate rain`);
         cy.wrap(element[2])
           .get('[data-cy="forecastOutlook"]')
-          .should('contain.text', `few clouds`);
+          .should('contain.text', `light rain`);
         cy.wrap(element[3])
           .get('[data-cy="forecastOutlook"]')
-          .should('contain.text', `clear sky`);
+          .should('contain.text', `light rain`);
         cy.wrap(element[4])
           .get('[data-cy="forecastOutlook"]')
-          .should('contain.text', `clear sky`);
+          .should('contain.text', `light rain`);
       });
   });
 
   it('five day forecast for dallas,texas displayed, correct temps displayed', () => {
+    cy.get('@citySearch').find('input').type('london{enter}');
+    cy.get('@forecastContainer').children().should('have.length', 5);
+
     cy.get('@forecastContainer')
       .children()
       .then((element) => {
@@ -94,35 +104,60 @@ describe('initial page load', () => {
           .should('contain.text', `49`);
         cy.wrap(element[0])
           .get('[data-cy="forecastMaxTemp"]')
-          .should('contain.text', `62`);
+          .should('contain.text', `54`);
 
         cy.wrap(element[1])
           .get('[data-cy="forecastMinTemp"]')
-          .should('contain.text', `51`);
+          .should('contain.text', `46`);
         cy.wrap(element[1])
           .get('[data-cy="forecastMaxTemp"]')
-          .should('contain.text', `70`);
+          .should('contain.text', `53`);
 
         cy.wrap(element[2])
           .get('[data-cy="forecastMinTemp"]')
-          .should('contain.text', `59`);
+          .should('contain.text', `46`);
         cy.wrap(element[2])
           .get('[data-cy="forecastMaxTemp"]')
-          .should('contain.text', `67`);
+          .should('contain.text', `53`);
 
         cy.wrap(element[3])
           .get('[data-cy="forecastMinTemp"]')
-          .should('contain.text', `50`);
+          .should('contain.text', `43`);
         cy.wrap(element[3])
           .get('[data-cy="forecastMaxTemp"]')
-          .should('contain.text', `62`);
+          .should('contain.text', `47`);
 
         cy.wrap(element[4])
           .get('[data-cy="forecastMinTemp"]')
-          .should('contain.text', `50`);
+          .should('contain.text', `41`);
         cy.wrap(element[4])
           .get('[data-cy="forecastMaxTemp"]')
-          .should('contain.text', `66`);
+          .should('contain.text', `46`);
+      });
+  });
+
+  it('five day forecast for londin displayed, verify weather icons displayed', () => {
+    cy.get('@citySearch').find('input').type('london{enter}');
+    cy.get('@forecastContainer').children().should('have.length', 5);
+
+    cy.get('@forecastContainer')
+      .children()
+      .then((element) => {
+        cy.wrap(element[0])
+          .should('have.attr', 'src')
+          .should('include', 'overcast-clouds');
+        cy.wrap(element[1])
+          .should('have.attr', 'src')
+          .should('include', 'rain');
+        cy.wrap(element[2])
+          .should('have.attr', 'src')
+          .should('include', 'rain');
+        cy.wrap(element[3])
+          .should('have.attr', 'src')
+          .should('include', 'rain');
+        cy.wrap(element[4])
+          .should('have.attr', 'src')
+          .should('include', 'rain');
       });
   });
 });
