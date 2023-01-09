@@ -9,14 +9,12 @@ export interface OneWeatherCall {
     humidity: number;
     wind_speed: number;
   };
-  weather: [
-    {
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }
-  ];
+  weather: {
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
+  };
   weekForecast: DailyWeather[];
 }
 
@@ -27,12 +25,10 @@ interface DailyWeather {
     max: number;
   };
   humidity: number;
-  weather: [
-    {
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }
-  ];
+  weather: {
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
+  };
 }
