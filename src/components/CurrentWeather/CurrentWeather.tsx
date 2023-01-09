@@ -1,12 +1,45 @@
-// will take in one weather object
-// so need to create type for weather
-// will be responsible for the icon, what if we render the icon link only based on if the weather object changes, more based on the weahter description (think this is what determiend it)
+import windIcon from '../../assets/weather-icons/wind.svg';
+import humidIcon from '../../assets/weather-icons/humidity.svg';
 
 const CurrentWeather = () => {
   return (
-    <div>
-      <p>this will be the current weather display</p>
-    </div>
+    <section>
+      <div>
+        <img src="dfds" alt="some icon" />
+      </div>
+      <div>
+        <p>location</p>
+        <p>current temp / feels like temp</p>
+        <p>outlook</p>
+
+        <div>
+          <p>low temp</p>
+          <p>hight temp</p>
+        </div>
+
+        <div>
+          <div>
+            <div>
+              <img src={windIcon} alt="" />
+            </div>
+            <div>
+              <p>Wind Speed</p>
+              <p>wind speed value</p>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <img src={humidIcon} alt="" />
+            </div>
+            <div>
+              <p>Humidity</p>
+              <p>humidity value</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
