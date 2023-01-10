@@ -1,3 +1,3 @@
 const convertTemp = (temp: number) => Math.round(temp - 273.15);
 
-export { convertTemp };
+export default { convertTemp };
