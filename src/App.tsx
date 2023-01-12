@@ -23,42 +23,64 @@ function App() {
   });
 
   const weatherData: undefined | WeatherData = useMemo(() => {
+    console.log('i am called');
     if (!weatherCall) return undefined;
-    const currentWeather = weatherCall.data.current;
-    if (unit === 'F') {
-      const weatherImperial: WeatherData['current'] = {
-        temp: imperialConvert.convertTemp(currentWeather.temp),
-        feels_like: imperialConvert.convertTemp(currentWeather.feels_like),
-        min_temp: imperialConvert.convertTemp(currentWeather.min_temp),
-        max_temp: imperialConvert.convertTemp(currentWeather.max_temp),
-        wind_speed: imperialConvert.convertWind(currentWeather.wind_speed),
-        humidity: currentWeather.humidity,
-      };
-      return {
-        city: weatherCall.data.city,
-        location: weatherCall.data.location,
-        weather: weatherCall.data.weather,
-        weekForecast: weatherCall.data.weekForecast,
-        current: weatherImperial,
-      };
-    } else {
-      const weatherMetric: WeatherData['current'] = {
-        temp: metricConvert.convertTemp(currentWeather.temp),
-        feels_like: metricConvert.convertTemp(currentWeather.feels_like),
-        min_temp: metricConvert.convertTemp(currentWeather.min_temp),
-        max_temp: metricConvert.convertTemp(currentWeather.max_temp),
-        wind_speed: Math.round(currentWeather.wind_speed),
-        humidity: currentWeather.humidity,
-      };
+    const { temp, feels_like, min_temp, max_temp, wind_speed, humidity } =
+      weatherCall.data.current;
+    const forecastWeather = weatherCall.data.weekForecast;
 
-      return {
-        city: weatherCall.data.city,
-        location: weatherCall.data.location,
-        weather: weatherCall.data.weather,
-        weekForecast: weatherCall.data.weekForecast,
-        current: weatherMetric,
-      };
-    }
+    const current: WeatherData['current'] = {
+      temp:
+        unit === 'F'
+          ? imperialConvert.convertTemp(temp)
+          : metricConvert.convertTemp(temp),
+      feels_like:
+        unit === 'F'
+          ? imperialConvert.convertTemp(feels_like)
+          : metricConvert.convertTemp(feels_like),
+      min_temp:
+        unit === 'F'
+          ? imperialConvert.convertTemp(min_temp)
+          : metricConvert.convertTemp(min_temp),
+      max_temp:
+        unit === 'F'
+          ? imperialConvert.convertTemp(max_temp)
+          : metricConvert.convertTemp(max_temp),
+      wind_speed:
+        unit === 'F'
+          ? imperialConvert.convertWind(wind_speed)
+          : Math.round(wind_speed),
+      humidity,
+    };
+
+    const weekForecast: WeatherData['weekForecast'] = forecastWeather.map(
+      ({ temp, humidity, weather }) => ({
+        temp: {
+          day:
+            unit === 'F'
+              ? imperialConvert.convertTemp(temp.day)
+              : metricConvert.convertTemp(temp.day),
+          min:
+            unit === 'F'
+              ? imperialConvert.convertTemp(temp.min)
+              : metricConvert.convertTemp(temp.min),
+          max:
+            unit === 'F'
+              ? imperialConvert.convertTemp(temp.max)
+              : metricConvert.convertTemp(temp.max),
+        },
+        humidity: humidity,
+        weather: weather,
+      })
+    );
+
+    return {
+      city: weatherCall.data.city,
+      location: weatherCall.data.location,
+      weather: weatherCall.data.weather,
+      weekForecast,
+      current,
+    };
   }, [weatherCall, unit]);
 
   return (
