@@ -1,4 +1,8 @@
 export interface OneWeatherCall {
+  data: WeatherData;
+}
+
+export interface WeatherData {
   city: string;
   location: string;
   current: {
