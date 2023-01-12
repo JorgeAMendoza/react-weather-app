@@ -5,6 +5,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { OneWeatherCall, WeatherData } from './types/api';
 import fetchWeatherData from './utils/fetch-weather-data';
 import convertUnits from './utils/convert-units';
+import CurrentWeather from './components/CurrentWeather/CurrentWeather';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
@@ -22,7 +23,6 @@ function App() {
   });
 
   const weatherData: undefined | WeatherData = useMemo(() => {
-    console.log('i am called');
     if (!weatherCall) return undefined;
     const { current, weekForecast } = convertUnits(
       weatherCall.data.current,
@@ -48,7 +48,12 @@ function App() {
       </header>
 
       {weatherData ? (
-        <p>{weatherData.current.temp}</p>
+        <CurrentWeather
+          city={weatherData.city}
+          location={weatherData.location}
+          current={weatherData.current}
+          weather={weatherData.weather}
+        />
       ) : (
         <p>somethign is wrong</p>
       )}

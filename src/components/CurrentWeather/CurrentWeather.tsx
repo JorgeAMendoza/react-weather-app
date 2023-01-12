@@ -1,12 +1,14 @@
+import { useMemo } from 'react';
 import windIcon from '../../assets/weather-icons/wind.svg';
 import humidIcon from '../../assets/weather-icons/humidity.svg';
-import { OneWeatherCall } from '../../types/api';
+import { WeatherData } from '../../types/api';
+import getIcon from '../../utils/getIcon';
 
 interface CurrentWeatherProps {
-  city: OneWeatherCall['city'];
-  location: OneWeatherCall['location'];
-  weather: OneWeatherCall['weather'];
-  current: OneWeatherCall['current'];
+  city: WeatherData['city'];
+  location: WeatherData['location'];
+  weather: WeatherData['weather'];
+  current: WeatherData['current'];
 }
 
 const CurrentWeather = ({
@@ -15,10 +17,14 @@ const CurrentWeather = ({
   weather,
   current,
 }: CurrentWeatherProps) => {
+  const weatherIcon = useMemo(
+    () => getIcon(weather.icon, weather.id),
+    [weather]
+  );
   return (
     <section>
       <div>
-        <img src="dfds" alt="some icon" />
+        <img src={weatherIcon} alt="some icon" />
       </div>
       <div>
         <p>
