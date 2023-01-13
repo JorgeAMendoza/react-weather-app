@@ -1,5 +1,7 @@
+import { useMemo } from 'react';
 import triangleIcon from '../../assets/imgs/triangle.svg';
 import { DailyWeather } from '../../types/api';
+import getIcon from '../../utils/getIcon';
 
 interface ForecastProps {
   temp: DailyWeather['temp'];
@@ -7,10 +9,14 @@ interface ForecastProps {
 }
 
 const Forecast = ({ temp, weather }: ForecastProps) => {
+  const forecastIcon = useMemo(
+    () => getIcon(weather.icon, weather.id),
+    [weather]
+  );
   return (
     <figure>
       <div>
-        <img alt="some icon" />
+        <img src={forecastIcon} alt="some icon" />
       </div>
 
       <div>
