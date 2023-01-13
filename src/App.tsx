@@ -6,6 +6,7 @@ import { OneWeatherCall, WeatherData } from './types/api';
 import fetchWeatherData from './utils/fetch-weather-data';
 import convertUnits from './utils/convert-units';
 import CurrentWeather from './components/CurrentWeather/CurrentWeather';
+import Forecast from './components/Forecast/Forecast';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
@@ -54,9 +55,15 @@ function App() {
           current={weatherData.current}
           weather={weatherData.weather}
         />
-      ) : (
-        <p>somethign is wrong</p>
-      )}
+      ) : null}
+
+      {weatherData ? (
+        <section>
+          {weatherData.weekForecast.map((forecast, i) => (
+            <Forecast key={i} temp={forecast.temp} weather={forecast.weather} />
+          ))}
+        </section>
+      ) : null}
 
       {error && <p>{error.message}</p>}
     </div>
