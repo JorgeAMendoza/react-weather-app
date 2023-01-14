@@ -11,15 +11,20 @@ import Forecast from './components/Forecast/Forecast';
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
   const [unit, setUnit] = useState<'F' | 'C'>('F');
+  const [errorMessage, setErrorMessage] = useState('');
   const queryClient = useQueryClient();
-  const { data: weatherCall, error } = useQuery<OneWeatherCall, Error>({
+  const { data: weatherCall } = useQuery<OneWeatherCall, Error>({
     queryKey: ['weather', search],
     queryFn: (): Promise<OneWeatherCall> => fetchWeatherData(search),
     refetchOnWindowFocus: false,
     retry: false,
     keepPreviousData: true,
-    onError() {
+    onError(error) {
       queryClient.setQueriesData(['weather', search], weatherCall);
+      setErrorMessage(error.message);
+    },
+    onSuccess() {
+      setErrorMessage('');
     },
   });
 
@@ -46,6 +51,7 @@ function App() {
         <button onClick={() => (unit === 'F' ? setUnit('C') : setUnit('F'))}>
           {unit}°
         </button>
+        {errorMessage && <p>{errorMessage}</p>}
       </header>
 
       {weatherData ? (
@@ -70,8 +76,6 @@ function App() {
           ))}
         </section>
       ) : null}
-
-      {error && <p>{error.message}</p>}
     </div>
   );
 }
