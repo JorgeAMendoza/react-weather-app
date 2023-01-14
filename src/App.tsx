@@ -60,7 +60,13 @@ function App() {
       {weatherData ? (
         <section>
           {weatherData.weekForecast.map((forecast, i) => (
-            <Forecast key={i} temp={forecast.temp} weather={forecast.weather} />
+            <Forecast
+              key={i}
+              temp={forecast.temp}
+              weather={forecast.weather}
+              date={forecast.date}
+              day={forecast.day}
+            />
           ))}
         </section>
       ) : null}

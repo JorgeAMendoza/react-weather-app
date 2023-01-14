@@ -6,9 +6,11 @@ import getIcon from '../../utils/getIcon';
 interface ForecastProps {
   temp: DailyWeather['temp'];
   weather: DailyWeather['weather'];
+  day: DailyWeather['day'];
+  date: DailyWeather['date'];
 }
 
-const Forecast = ({ temp, weather }: ForecastProps) => {
+const Forecast = ({ temp, weather, day, date }: ForecastProps) => {
   const forecastIcon = useMemo(
     () => getIcon(weather.icon, weather.id),
     [weather]
@@ -20,8 +22,8 @@ const Forecast = ({ temp, weather }: ForecastProps) => {
       </div>
 
       <div>
-        <p>Day</p>
-        <p>Date</p>
+        <p>{day}</p>
+        <p>{date}</p>
       </div>
 
       <p>{weather.description}</p>

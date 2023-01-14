@@ -35,4 +35,6 @@ export interface DailyWeather {
     description: string;
     icon: string;
   };
+  day: string;
+  date: string;
 }
