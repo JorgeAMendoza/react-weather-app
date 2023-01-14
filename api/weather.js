@@ -1,6 +1,32 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 
+const day = [
+  'sunday',
+  'monday',
+  'tuesday',
+  'wendesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday',
+];
+
+const month = [
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december',
+];
+
 export default async function fetchWeather(request, response) {
   const geoDataAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${request.query.location}&limit=1&appid=${process.env.API_KEY}`;
 
@@ -26,16 +52,41 @@ export default async function fetchWeather(request, response) {
     locationCountry === 'US' ? locationState : locationCountry;
 
   const targetForecast = weatherResponse.daily.slice(1, 6);
+  const date = new Date();
 
-  const fiveDayForcast = targetForecast.map((forecast) => ({
-    temp: {
-      day: forecast.temp.day,
-      min: forecast.temp.min,
-      max: forecast.temp.max,
-    },
-    humidity: forecast.humidity,
-    weather: forecast.weather[0],
-  }));
+  const fiveDayForcast = targetForecast.map((forecast) => {
+    const numberDate = date.getDate();
+    const numberDateLength = String(numberDate).length;
+    const numberDateLastNum = String(numberDate).charAt(numberDateLength - 1);
+    let dateWithOrdinal = '';
+
+    switch (numberDateLastNum) {
+      case '1':
+        dateWithOrdinal = `${numberDate}st`;
+        break;
+      case '2':
+        dateWithOrdinal = `${numberDate}nd`;
+        break;
+      case '3':
+        dateWithOrdinal = `${numberDate}rd`;
+        break;
+      default:
+        dateWithOrdinal = `${numberDate}th`;
+    }
+
+    date.setDate(date.getDate() + 1);
+    return {
+      temp: {
+        day: forecast.temp.day,
+        min: forecast.temp.min,
+        max: forecast.temp.max,
+      },
+      humidity: forecast.humidity,
+      weather: forecast.weather[0],
+      day: day[date.getDay()],
+      date: `${month[date.getMonth()]} ${dateWithOrdinal}`,
+    };
+  });
 
   const oneWeatherCall = {
     city: locationCity,

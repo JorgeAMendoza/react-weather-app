@@ -41,7 +41,7 @@ const convertUnits = (
   };
 
   const weekForecast: WeatherData['weekForecast'] = forecastWeather.map(
-    ({ temp, humidity, weather }) => ({
+    ({ temp, humidity, weather, date, day }) => ({
       temp: {
         day:
           unit === 'F'
@@ -58,6 +58,8 @@ const convertUnits = (
       },
       humidity: humidity,
       weather: weather,
+      day,
+      date,
     })
   );
 

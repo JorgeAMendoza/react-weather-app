@@ -22,7 +22,7 @@ export interface WeatherData {
   weekForecast: DailyWeather[];
 }
 
-interface DailyWeather {
+export interface DailyWeather {
   temp: {
     day: number;
     min: number;
@@ -35,4 +35,6 @@ interface DailyWeather {
     description: string;
     icon: string;
   };
+  day: string;
+  date: string;
 }
