@@ -10,6 +10,7 @@ describe('searching for new city, successful search', () => {
     cy.get('[data-cy="currentWeather"]').as('currentWeather');
     cy.get('[data-cy="location"]').as('location');
     cy.get('[data-cy="currentTemperature"]').as('currentTemperature');
+    cy.get('[data-cy="currentOutlook"]').as('currentOutlook');
     cy.get('[data-cy="currentLowTemp"]').as('currentLowTemp');
     cy.get('[data-cy="currentHighTemp"]').as('currentHighTemp');
     cy.get('[data-cy="windSpeed"]').as('windSpeed');

@@ -2,6 +2,14 @@
 
 describe('initial page load', () => {
   beforeEach(() => {
+    cy.intercept(
+      'GET',
+      'http://localhost:3000/api/weather?location=Dallas,+Texas',
+      {
+        statusCode: 200,
+        fixture: 'dallas.json',
+      }
+    ).as('api');
     cy.visit('/');
     cy.get('[data-cy="unitButton"]').as('unitButton');
     cy.get('[data-cy="searchButton"]').as('searchButton');
@@ -16,11 +24,6 @@ describe('initial page load', () => {
     cy.get('[data-cy="humidity"]').as('humidity');
     cy.get('[data-cy="currentWeatherIcon"]').as('currentWeatherIcon');
   });
-
-  cy.intercept('http://localhost:3000/api/weather?location=Dallas,+Texas', {
-    statusCode: 200,
-    fixture: 'dallas.json',
-  }).as('api');
 
   it('unit button begins in metric system, Fahrenheit', () => {
     cy.get('@unitButton').should('contain.text', 'F');
