@@ -48,14 +48,18 @@ const SearchBar = ({ setSearch }: SearchBarProps) => {
           <img src={searchIcon} alt="" />
         </div>
         <form onSubmit={handleSubmit(searchGeoLocation)}>
-          <input
-            type="text"
-            {...register('searchQuery', {
-              pattern: /^[A-Za-z.' ]+$|^[A-Za-z.' ]+,\s?[A-Za-z ]+$/gi,
-              required: true,
-            })}
-            aria-invalid={errors.searchQuery ? 'true' : 'false'}
-          />
+          <label data-cy="citySearch">
+            <input
+              type="text"
+              {...register('searchQuery', {
+                pattern: /^[A-Za-z.' ]+$|^[A-Za-z.' ]+,\s?[A-Za-z ]+$/gi,
+                required: true,
+              })}
+              aria-invalid={errors.searchQuery ? 'true' : 'false'}
+            />
+          </label>
+
+          <button data-cy="searchButton"></button>
         </form>
       </div>
     </header>

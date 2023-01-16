@@ -48,7 +48,10 @@ function App() {
     <div className="App">
       <header>
         <SearchBar setSearch={setSearch} />
-        <button onClick={() => (unit === 'F' ? setUnit('C') : setUnit('F'))}>
+        <button
+          onClick={() => (unit === 'F' ? setUnit('C') : setUnit('F'))}
+          data-cy="unitButton"
+        >
           {unit}°
         </button>
         {errorMessage && <p>{errorMessage}</p>}
@@ -64,7 +67,7 @@ function App() {
       ) : null}
 
       {weatherData ? (
-        <section>
+        <section data-cy="forecastWeather">
           {weatherData.weekForecast.map((forecast, i) => (
             <Forecast
               key={i}
