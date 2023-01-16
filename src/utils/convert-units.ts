@@ -35,8 +35,8 @@ const convertUnits = (
         : metricConvert.convertTemp(max_temp),
     wind_speed:
       unit === 'F'
-        ? imperialConvert.convertWind(wind_speed)
-        : Math.round(wind_speed),
+        ? imperialConvert.convertWind(Number(wind_speed)).toString() + 'mph'
+        : Math.round(Number(wind_speed)).toString() + 'mps',
     humidity,
   };
 

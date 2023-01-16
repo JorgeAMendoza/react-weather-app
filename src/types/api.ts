@@ -11,7 +11,7 @@ export interface WeatherData {
     max_temp: number;
     feels_like: number;
     humidity: number;
-    wind_speed: number;
+    wind_speed: string;
   };
   weather: {
     id: number;
