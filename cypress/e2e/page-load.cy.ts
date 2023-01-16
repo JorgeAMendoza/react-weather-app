@@ -38,7 +38,7 @@ describe('initial page load', () => {
     cy.get('@humidity').should('contain.text', '81%');
     cy.get('@currentWeatherIcon')
       .should('have.attr', 'src')
-      .should('include', 'night-clear');
+      .should('include', 'day-partly-cloudy');
   });
 
   it('five day forcast for dallas,texas is displayed, dates verified', () => {
