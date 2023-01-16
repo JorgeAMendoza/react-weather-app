@@ -54,7 +54,7 @@ function App() {
         >
           {unit}°
         </button>
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <p data-cy="errorMessage">{errorMessage}</p>}
       </header>
 
       {weatherData ? (
