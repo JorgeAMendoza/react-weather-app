@@ -50,7 +50,7 @@ describe('searching for new city, bad search', () => {
     cy.get('[data-cy="errorMessage"]').should('exist');
     cy.get('[data-cy="errorMessage"]').should('contain.text', 'city not found');
 
-    cy.get('@citySearch').find('input').clear().type('london{enter}');
+    cy.get('@citySearch').find('input').clear().type('London{enter}');
     cy.get('[data-cy="errorMessage"]').should('not.exist');
   });
 });

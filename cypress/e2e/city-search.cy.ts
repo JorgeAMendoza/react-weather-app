@@ -27,14 +27,44 @@ describe('searching for new city, successful search', () => {
     cy.get('[data-cy="currentWeatherIcon"]').as('currentWeatherIcon');
   });
 
-  it('search for "london", current weather data is retrieved"', () => {
+  it('search for "london", current weather data is retrieved in imperial units"', () => {
     cy.get('@citySearch').find('input').clear().type('London{enter}');
 
     cy.get('@location').should('contain.text', 'London, GB');
-    cy.get('@currentTemperature').should('contain.text', '55');
-    cy.get('@currentLowTemp').should('contain.text', '51');
-    cy.get('@currentHighTemp').should('contain.text', '55');
+    cy.get('@currentTemperature').should('contain.text', '55°');
+    cy.get('@currentLowTemp').should('contain.text', '51°');
+    cy.get('@currentHighTemp').should('contain.text', '55°');
     cy.get('@windSpeed').should('contain.text', '20mph');
+    cy.get('@humidity').should('contain.text', '80%');
+    cy.get('@currentWeatherIcon')
+      .should('have.attr', 'src')
+      .should('include', 'cloudy');
+  });
+
+  it('search for "london", current weather data is retrieved, metric units displayed"', () => {
+    cy.get('@citySearch').find('input').clear().type('London{enter}');
+    cy.get('@unitButton').click();
+
+    cy.get('@location').should('contain.text', 'London, GB');
+    cy.get('@currentTemperature').should('contain.text', '13°');
+    cy.get('@currentLowTemp').should('contain.text', '11°');
+    cy.get('@currentHighTemp').should('contain.text', '13°');
+    cy.get('@windSpeed').should('contain.text', '9mps');
+    cy.get('@humidity').should('contain.text', '80%');
+    cy.get('@currentWeatherIcon')
+      .should('have.attr', 'src')
+      .should('include', 'cloudy');
+  });
+
+  it('search for "london", start with unit button set to metric, metric unit values displayed', () => {
+    cy.get('@unitButton').click();
+    cy.get('@citySearch').find('input').clear().type('London{enter}');
+
+    cy.get('@location').should('contain.text', 'London, GB');
+    cy.get('@currentTemperature').should('contain.text', '13°');
+    cy.get('@currentLowTemp').should('contain.text', '11°');
+    cy.get('@currentHighTemp').should('contain.text', '13°');
+    cy.get('@windSpeed').should('contain.text', '9mps');
     cy.get('@humidity').should('contain.text', '80%');
     cy.get('@currentWeatherIcon')
       .should('have.attr', 'src')
@@ -93,7 +123,7 @@ describe('searching for new city, successful search', () => {
       });
   });
 
-  it('five day forecast for london displayed, correct temps displayed', () => {
+  it('five day forecast for london displayed, correct temps displayed in imperial units', () => {
     cy.get('@citySearch').find('input').clear().type('London{enter}');
     cy.get('@location').should('contain.text', 'London, GB');
     cy.get('@forecastContainer').children().should('have.length', 5);
@@ -135,6 +165,52 @@ describe('searching for new city, successful search', () => {
         cy.wrap(element[4])
           .get('[data-cy="forecastMaxTemp"]')
           .should('contain.text', `46`);
+      });
+  });
+
+  it('five day forecast for london displayed, correct temps displayed in metric units', () => {
+    cy.get('@citySearch').find('input').clear().type('London{enter}');
+    cy.get('@unitButton').click();
+    cy.get('@location').should('contain.text', 'London, GB');
+    cy.get('@forecastContainer').children().should('have.length', 5);
+
+    cy.get('@forecastContainer')
+      .children()
+      .then((element) => {
+        cy.wrap(element[0])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `9°`);
+        cy.wrap(element[0])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `12°`);
+
+        cy.wrap(element[1])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `8°`);
+        cy.wrap(element[1])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `12°`);
+
+        cy.wrap(element[2])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `8°`);
+        cy.wrap(element[2])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `11°`);
+
+        cy.wrap(element[3])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `6°`);
+        cy.wrap(element[3])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `9°`);
+
+        cy.wrap(element[4])
+          .get('[data-cy="forecastMinTemp"]')
+          .should('contain.text', `5°`);
+        cy.wrap(element[4])
+          .get('[data-cy="forecastMaxTemp"]')
+          .should('contain.text', `8°`);
       });
   });
 
