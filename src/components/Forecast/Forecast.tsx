@@ -23,19 +23,19 @@ const Forecast = ({ temp, weather, day, date }: ForecastProps) => {
 
       <div>
         <p>{day}</p>
-        <p>{date}</p>
+        <p data-cy="forecastDay">{date}</p>
       </div>
 
-      <p>{weather.description}</p>
+      <p data-cy="forecastOutlook">{weather.description}</p>
 
       <div>
-        <p>
+        <p data-cy="forecastMinTemp">
           <span>
             <img src={triangleIcon} alt="" />
           </span>
           {temp.min}°
         </p>
-        <p>
+        <p data-cy="forecastMaxTemp">
           <span>
             <img src={triangleIcon} alt="" />
           </span>

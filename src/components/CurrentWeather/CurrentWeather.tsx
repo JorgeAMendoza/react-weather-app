@@ -22,22 +22,22 @@ const CurrentWeather = ({
     [weather]
   );
   return (
-    <section>
+    <section data-cy="currentWeather">
       <div>
-        <img src={weatherIcon} alt="some icon" />
+        <img src={weatherIcon} alt="some icon" data-cy="currentWeatherIcon" />
       </div>
       <div>
-        <p>
+        <p data-cy="location">
           {city}, {location}
         </p>
-        <p>
+        <p data-cy="currentTemperature">
           {current.temp}° / feels like {current.feels_like}°
         </p>
-        <p>{weather.description}</p>
+        <p data-cy="currentOutlook">{weather.description}</p>
 
         <div>
-          <p>low {current.min_temp}</p>
-          <p>high {current.max_temp}</p>
+          <p data-cy="currentLowTemp">low {current.min_temp}°</p>
+          <p data-cy="currentHighTemp">high {current.max_temp}°</p>
         </div>
 
         <div>
@@ -47,7 +47,7 @@ const CurrentWeather = ({
             </div>
             <div>
               <p>Wind Speed</p>
-              <p>{current.wind_speed}</p>
+              <p data-cy="windSpeed">{current.wind_speed}</p>
             </div>
           </div>
 
@@ -57,7 +57,7 @@ const CurrentWeather = ({
             </div>
             <div>
               <p>Humidity</p>
-              <p>{current.humidity}%</p>
+              <p data-cy="humidity">{current.humidity}%</p>
             </div>
           </div>
         </div>

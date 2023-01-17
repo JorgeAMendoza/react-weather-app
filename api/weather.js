@@ -1,6 +1,65 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 
+const stateDictionary = {
+  Alabama: 'AL',
+  Alaska: 'Alaska',
+  'American Samoa': 'AS',
+  Arizona: 'AZ',
+  Arkansas: 'AR',
+  California: 'CA',
+  Colorado: 'CO',
+  Connecticut: 'CT',
+  Delaware: 'DE',
+  'District Of Columbia': 'FM',
+  Florida: 'FL',
+  Georgia: 'GA',
+  Guam: 'GU',
+  Hawaii: 'HI',
+  Idaho: 'ID',
+  Illinois: 'ID',
+  Indiana: 'IN',
+  Iowa: 'IA',
+  Kansas: 'KS',
+  Kentucky: 'KY',
+  Lousiana: 'LA',
+  Maine: 'ME',
+  'Marshall Islands': 'MH',
+  Maryland: 'MD',
+  Massachusetts: 'MA',
+  Michigan: 'MI',
+  Minnesota: 'MN',
+  Mississippi: 'MS',
+  Missouri: 'MS',
+  Montana: 'MT',
+  Nebraska: 'NE',
+  Neveda: 'NV',
+  'New Hampshire': 'NH',
+  'New Jersey': 'NJ',
+  'New Mexico': 'NM',
+  'New York': 'NY',
+  'North Carolina': 'NC',
+  'North Dakota': 'ND',
+  'Northern Mariana Islands': 'MP',
+  Ohio: 'OH',
+  Oklahoma: 'OK',
+  Oregon: 'OR',
+  Pennsylvania: 'PA',
+  'Puerto Rico': 'PR',
+  'Rhode Island': 'RI',
+  'South Carolina': 'SC',
+  'South Dakota': 'SD',
+  Tennessee: 'TN',
+  Texas: 'TX',
+  Vermont: 'VT',
+  'Virgin Islands': 'VI',
+  Virginia: 'VA',
+  Washington: 'WA',
+  'West Virginia': 'WV',
+  Wisconsin: 'WI',
+  Wyoming: 'Wyoming',
+};
+
 const day = [
   'sunday',
   'monday',
@@ -49,7 +108,7 @@ export default async function fetchWeather(request, response) {
   const locationCountry = geoResponse[0].country;
 
   const targetLocation =
-    locationCountry === 'US' ? locationState : locationCountry;
+    locationCountry === 'US' ? stateDictionary[locationState] : locationCountry;
 
   const targetForecast = weatherResponse.daily.slice(1, 6);
   const date = new Date();
