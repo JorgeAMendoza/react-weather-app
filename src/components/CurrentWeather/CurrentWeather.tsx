@@ -36,8 +36,8 @@ const CurrentWeather = ({
         <p data-cy="currentOutlook">{weather.description}</p>
 
         <div>
-          <p data-cy="currentLowTemp">low {current.min_temp}</p>
-          <p data-cy="currentHighTemp">high {current.max_temp}</p>
+          <p data-cy="currentLowTemp">low {current.min_temp}°</p>
+          <p data-cy="currentHighTemp">high {current.max_temp}°</p>
         </div>
 
         <div>
