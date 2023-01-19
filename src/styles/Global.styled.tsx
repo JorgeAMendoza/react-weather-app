@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     --black: #000;
     --blue: #005A8E
     --light-blue: #00A2FF;
+    --gray: #EBEBEB;
   }
   html {
     font-size: 62.5%;
@@ -17,17 +18,18 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.5;
     z-index:1;
   }
   body{
     font-family: 'Lato', sans-serif;
+    -webkit-font-smoothing: antialiased;
     line-height:1.5;
     font-size: 1.6rem;
     min-height: 100%;
     position:relative;
-    background-color: var(--dark-blue);
-    color: var(--white);
+    background-color: var(--gray);
+    color: var(--black);
   } 
   img,svg,picture,video,canvas {
     max-width: 100%;

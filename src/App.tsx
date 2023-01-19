@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { OneWeatherCall, WeatherData } from './types/api';
@@ -45,7 +44,7 @@ function App() {
   }, [weatherCall, unit]);
 
   return (
-    <div className="App">
+    <div>
       <header>
         <SearchBar setSearch={setSearch} />
         <button
