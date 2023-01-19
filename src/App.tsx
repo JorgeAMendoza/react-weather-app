@@ -6,6 +6,7 @@ import fetchWeatherData from './utils/fetch-weather-data';
 import convertUnits from './utils/convert-units';
 import CurrentWeather from './components/CurrentWeather/CurrentWeather';
 import Forecast from './components/Forecast/Forecast';
+import Styled from './App.styled';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
@@ -44,7 +45,7 @@ function App() {
   }, [weatherCall, unit]);
 
   return (
-    <div>
+    <Styled.App>
       <header>
         <SearchBar setSearch={setSearch} />
         <button
@@ -78,7 +79,7 @@ function App() {
           ))}
         </section>
       ) : null}
-    </div>
+    </Styled.App>
   );
 }
 
