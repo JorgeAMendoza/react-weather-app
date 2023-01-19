@@ -46,16 +46,16 @@ function App() {
 
   return (
     <Styled.App>
-      <header>
+      <Styled.Header>
         <SearchBar setSearch={setSearch} />
-        <button
+        <Styled.UnitButton
           onClick={() => (unit === 'F' ? setUnit('C') : setUnit('F'))}
           data-cy="unitButton"
         >
           {unit}°
-        </button>
+        </Styled.UnitButton>
         {errorMessage && <p data-cy="errorMessage">{errorMessage}</p>}
-      </header>
+      </Styled.Header>
 
       {weatherData ? (
         <CurrentWeather

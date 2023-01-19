@@ -30,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
     position:relative;
     background-color: var(--gray);
     color: var(--black);
+    padding:1.5rem 0;
   } 
   img,svg,picture,video,canvas {
     max-width: 100%;
@@ -41,6 +42,9 @@ const GlobalStyle = createGlobalStyle`
   }
   input,textarea,select,button {
     font-family: inherit;
+  }
+  button{
+    cursor:pointer;
   }
   ul,ol{
     list-style: none;
