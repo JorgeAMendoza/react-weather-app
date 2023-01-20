@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const SearchBar = styled.div`
-  width: 70%;
+  width: min(70%, 27rem);
 `;
 
 const SearchLabel = styled.label`

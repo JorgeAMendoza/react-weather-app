@@ -21,8 +21,8 @@ const UnitButton = styled.button`
   padding: 0.8rem;
   letter-spacing: 0.25rem;
   border-radius: 50%;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
 `;
 
 export default { App, Header, UnitButton };
