@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import searchIcon from '../../assets/imgs/search.svg';
 import { SubmitHandler } from 'react-hook-form/dist/types';
+import Styled from './SearchBar.styled';
 
 const cityRegex = /^[A-Za-z.' ]+$/;
 const cityStateRegex = /^[A-Za-z.' ]+,\s?[A-Za-z ]+$/;
@@ -42,27 +43,24 @@ const SearchBar = ({ setSearch }: SearchBarProps) => {
   };
 
   return (
-    <header>
-      <div>
-        <div>
-          <img src={searchIcon} alt="" />
-        </div>
-        <form onSubmit={handleSubmit(searchGeoLocation)}>
-          <label data-cy="citySearch">
-            <input
-              type="text"
-              {...register('searchQuery', {
-                pattern: /^[A-Za-z.' ]+$|^[A-Za-z.' ]+,\s?[A-Za-z ]+$/gi,
-                required: true,
-              })}
-              aria-invalid={errors.searchQuery ? 'true' : 'false'}
-            />
-          </label>
-
-          <button data-cy="searchButton"></button>
-        </form>
-      </div>
-    </header>
+    <Styled.SearchBar>
+      <form onSubmit={handleSubmit(searchGeoLocation)}>
+        <Styled.SearchLabel data-cy="citySearch">
+          <span>
+            <img src={searchIcon} alt="" />
+          </span>
+          <input
+            type="text"
+            {...register('searchQuery', {
+              pattern: /^[A-Za-z.' ]+$|^[A-Za-z.' ]+,\s?[A-Za-z ]+$/gi,
+              required: true,
+            })}
+            aria-invalid={errors.searchQuery ? 'true' : 'false'}
+            placeholder="City..."
+          />
+        </Styled.SearchLabel>
+      </form>
+    </Styled.SearchBar>
   );
 };
 
