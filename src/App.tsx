@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { OneWeatherCall, WeatherData } from './types/api';
@@ -7,6 +6,7 @@ import fetchWeatherData from './utils/fetch-weather-data';
 import convertUnits from './utils/convert-units';
 import CurrentWeather from './components/CurrentWeather/CurrentWeather';
 import Forecast from './components/Forecast/Forecast';
+import Styled from './App.styled';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
@@ -45,17 +45,17 @@ function App() {
   }, [weatherCall, unit]);
 
   return (
-    <div className="App">
-      <header>
+    <Styled.App>
+      <Styled.Header>
         <SearchBar setSearch={setSearch} />
-        <button
+        <Styled.UnitButton
           onClick={() => (unit === 'F' ? setUnit('C') : setUnit('F'))}
           data-cy="unitButton"
         >
           {unit}°
-        </button>
+        </Styled.UnitButton>
         {errorMessage && <p data-cy="errorMessage">{errorMessage}</p>}
-      </header>
+      </Styled.Header>
 
       {weatherData ? (
         <CurrentWeather
@@ -79,7 +79,7 @@ function App() {
           ))}
         </section>
       ) : null}
-    </div>
+    </Styled.App>
   );
 }
 
