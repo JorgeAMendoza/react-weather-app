@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const App = styled.div`
   width: 90%;
-  max-width: 120rem;
+  max-width: 70rem;
   margin: 0 auto;
 `;
 

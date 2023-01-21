@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import device from '../../styles/utils/device';
 
 const CurrentWeather = styled.section`
   background: linear-gradient(#00a2ff, #005a8e);
@@ -16,6 +17,18 @@ const CurrentWeather = styled.section`
     'outlook outlook'
     'min-max min-max'
     'wind-humid wind-humid ';
+
+  @media screen and ${device.tablet} {
+    padding: 5rem 0;
+    grid-template-areas:
+      'icon location'
+      'icon temp'
+      'icon outlook'
+      'icon min-max'
+      'icon wind-humid';
+    text-align: left;
+    gap: 0.6rem;
+  }
 `;
 
 const Location = styled.p`
@@ -29,6 +42,15 @@ const Icon = styled.div`
   img {
     margin: 0 auto;
     width: 6.5rem;
+  }
+
+  @media screen and ${device.tablet} {
+    img {
+      width: 21rem;
+    }
+    align-self: center;
+    justify-self: end;
+    margin-right: 5rem;
   }
 `;
 
@@ -47,6 +69,10 @@ const MinMaxTemp = styled.div`
   justify-content: center;
   text-align: center;
   gap: 2rem;
+
+  @media screen and ${device.tablet} {
+    justify-content: flex-start;
+  }
 `;
 
 const WindHumidContainer = styled.div`
@@ -58,6 +84,10 @@ const WindHumidContainer = styled.div`
 
   img {
     width: 3rem;
+  }
+
+  @media screen and ${device.tablet} {
+    justify-content: flex-start;
   }
 `;
 
