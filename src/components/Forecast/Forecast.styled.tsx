@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import device from '../../styles/utils/device';
 
 const Forecast = styled.figure`
   --background: var(--white);
@@ -13,16 +14,43 @@ const Forecast = styled.figure`
   text-transform: capitalize;
   border-radius: 10px;
   box-shadow: -5px 7px 5px rgba(0, 0, 0, 0.25);
+
+  @media screen and ${device.tablet} {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto 1fr 1fr auto;
+    grid-template-areas:
+      'icon'
+      'date'
+      'outlook'
+      'temp';
+    text-align: center;
+    gap: 1rem;
+    font-size: 1.6rem;
+    box-shadow: 0 7px 5px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 const Icon = styled.div`
   grid-area: icon;
   margin-right: 1rem;
+
+  @media screen and ${device.tablet} {
+    margin: 0;
+    margin: 0 auto;
+
+    img {
+      width: 7rem;
+    }
+  }
 `;
 
 const Date = styled.div`
   grid-area: date;
   display: flex;
+
+  @media screen and ${device.tablet} {
+    display: block;
+  }
 `;
 
 const Outlook = styled.p`
@@ -50,6 +78,10 @@ const Temperature = styled.div`
         transform: rotate(180deg);
       }
     }
+  }
+  @media screen and ${device.tablet} {
+    justify-self: center;
+    margin-block-start: 3rem;
   }
 `;
 

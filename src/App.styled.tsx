@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import device from './styles/utils/device';
 
 const App = styled.div`
   width: 90%;
-  max-width: 70rem;
+  max-width: 76rem;
   margin: 0 auto;
 `;
 
@@ -29,6 +30,10 @@ const ForecastContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+
+  @media screen and ${device.tablet} {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 
 const ForecastTitle = styled.p`
