@@ -68,15 +68,18 @@ function App() {
 
       {weatherData ? (
         <section data-cy="forecastWeather">
-          {weatherData.weekForecast.map((forecast, i) => (
-            <Forecast
-              key={i}
-              temp={forecast.temp}
-              weather={forecast.weather}
-              date={forecast.date}
-              day={forecast.day}
-            />
-          ))}
+          <Styled.ForecastTitle>Five Day Forecast</Styled.ForecastTitle>
+          <Styled.ForecastContainer>
+            {weatherData.weekForecast.map((forecast, i) => (
+              <Forecast
+                key={i}
+                temp={forecast.temp}
+                weather={forecast.weather}
+                date={forecast.date}
+                day={forecast.day}
+              />
+            ))}
+          </Styled.ForecastContainer>
         </section>
       ) : null}
     </Styled.App>

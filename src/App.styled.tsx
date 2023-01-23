@@ -25,4 +25,15 @@ const UnitButton = styled.button`
   height: 4rem;
 `;
 
-export default { App, Header, UnitButton };
+const ForecastContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+`;
+
+const ForecastTitle = styled.p`
+  font-size: 2.4rem;
+  font-weight: 400;
+`;
+
+export default { App, Header, UnitButton, ForecastContainer, ForecastTitle };
