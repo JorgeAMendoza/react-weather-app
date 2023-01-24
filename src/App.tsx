@@ -13,7 +13,7 @@ function App() {
   const [unit, setUnit] = useState<'F' | 'C'>('F');
   const [errorMessage, setErrorMessage] = useState('');
   const queryClient = useQueryClient();
-  const { data: weatherCall } = useQuery<OneWeatherCall, Error>({
+  const { data: weatherCall, isFetching } = useQuery<OneWeatherCall, Error>({
     queryKey: ['weather', search],
     queryFn: (): Promise<OneWeatherCall> => fetchWeatherData(search),
     refetchOnWindowFocus: false,
@@ -47,7 +47,7 @@ function App() {
   return (
     <Styled.App>
       <Styled.Header>
-        <SearchBar setSearch={setSearch} />
+        <SearchBar setSearch={setSearch} isLoading={isFetching} />
         <Styled.UnitButton
           onClick={() => (unit === 'F' ? setUnit('C') : setUnit('F'))}
           data-cy="unitButton"
