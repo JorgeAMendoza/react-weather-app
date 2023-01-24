@@ -47,6 +47,7 @@ const ForecastContainer = styled.div`
 const ForecastTitle = styled.p`
   font-size: 2.4rem;
   font-weight: 400;
+  margin-bottom: 1.5rem;
 `;
 
 export default { App, Header, UnitButton, ForecastContainer, ForecastTitle };
