@@ -54,7 +54,11 @@ function App() {
         >
           {unit}°
         </Styled.UnitButton>
-        {errorMessage && <p data-cy="errorMessage">{errorMessage}</p>}
+        {errorMessage && (
+          <Styled.ErrorMessage data-cy="errorMessage" aria-live="polite">
+            {errorMessage}
+          </Styled.ErrorMessage>
+        )}
       </Styled.Header>
 
       {weatherData ? (
