@@ -25,6 +25,9 @@ const SearchLabel = styled.label`
 
   span {
     margin-right: 1rem;
+    img {
+      width: 2.5rem;
+    }
   }
 `;
 
