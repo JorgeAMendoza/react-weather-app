@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import triangleIcon from '../../assets/imgs/triangle.svg';
 import { DailyWeather } from '../../types/api';
 import getIcon from '../../utils/getIcon';
+import Styled from './Forecast.styled';
 
 interface ForecastProps {
   temp: DailyWeather['temp'];
@@ -16,33 +17,39 @@ const Forecast = ({ temp, weather, day, date }: ForecastProps) => {
     [weather]
   );
   return (
-    <figure>
-      <div>
+    <Styled.Forecast>
+      <Styled.Icon>
         <img src={forecastIcon} alt="some icon" />
-      </div>
+      </Styled.Icon>
 
-      <div>
-        <p>{day}</p>
-        <p data-cy="forecastDay">{date}</p>
-      </div>
+      <Styled.Date>
+        <p>
+          <strong>{day}</strong>,
+        </p>
+        <p data-cy="forecastDay">
+          <strong>{date}</strong>
+        </p>
+      </Styled.Date>
 
-      <p data-cy="forecastOutlook">{weather.description}</p>
+      <Styled.Outlook data-cy="forecastOutlook">
+        {weather.description}
+      </Styled.Outlook>
 
-      <div>
+      <Styled.Temperature>
         <p data-cy="forecastMinTemp">
           <span>
             <img src={triangleIcon} alt="" />
           </span>
-          {temp.min}°
+          <strong>{temp.min}°</strong>
         </p>
         <p data-cy="forecastMaxTemp">
           <span>
             <img src={triangleIcon} alt="" />
           </span>
-          {temp.max}°
+          <strong>{temp.max}°</strong>
         </p>
-      </div>
-    </figure>
+      </Styled.Temperature>
+    </Styled.Forecast>
   );
 };
 

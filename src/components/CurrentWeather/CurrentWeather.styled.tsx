@@ -17,6 +17,7 @@ const CurrentWeather = styled.section`
     'outlook outlook'
     'min-max min-max'
     'wind-humid wind-humid ';
+  box-shadow: -5px 7px 5px rgba(0, 0, 0, 0.25);
 
   @media screen and ${device.tablet} {
     padding: 5rem 0;

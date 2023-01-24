@@ -1,9 +1,18 @@
 import styled from 'styled-components';
+import device from './styles/utils/device';
 
 const App = styled.div`
   width: 90%;
-  max-width: 70rem;
+  max-width: 76rem;
   margin: 0 auto;
+
+  & > *:not(:last-child) {
+    margin-block-end: 2.5rem;
+  }
+
+  @media screen and ${device.tablet} {
+    margin-block-start: 5rem;
+  }
 `;
 
 const Header = styled.header`
@@ -25,4 +34,20 @@ const UnitButton = styled.button`
   height: 4rem;
 `;
 
-export default { App, Header, UnitButton };
+const ForecastContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media screen and ${device.tablet} {
+    grid-template-columns: repeat(5, 1fr);
+  }
+`;
+
+const ForecastTitle = styled.p`
+  font-size: 2.4rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+`;
+
+export default { App, Header, UnitButton, ForecastContainer, ForecastTitle };
