@@ -7,7 +7,7 @@ const App = styled.div`
   margin: 0 auto;
 
   & > *:not(:last-child) {
-    margin-block-end: 2.5rem;
+    margin-block-end: 3rem;
   }
 
   @media screen and ${device.tablet} {
@@ -19,6 +19,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 `;
 
 const UnitButton = styled.button`
@@ -50,4 +51,21 @@ const ForecastTitle = styled.p`
   margin-bottom: 1.5rem;
 `;
 
-export default { App, Header, UnitButton, ForecastContainer, ForecastTitle };
+const ErrorMessage = styled.p`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: red;
+  text-transform: capitalize;
+  font-size: 1.3rem;
+  font-weight: 700;
+`;
+
+export default {
+  App,
+  Header,
+  UnitButton,
+  ForecastContainer,
+  ForecastTitle,
+  ErrorMessage,
+};
