@@ -5,6 +5,14 @@ const App = styled.div`
   width: 90%;
   max-width: 76rem;
   margin: 0 auto;
+
+  & > *:not(:last-child) {
+    margin-block-end: 2.5rem;
+  }
+
+  @media screen and ${device.tablet} {
+    margin-block-start: 5rem;
+  }
 `;
 
 const Header = styled.header`
