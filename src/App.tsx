@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import SearchBar from './components/SearchBar/SearchBar';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { OneWeatherCall, WeatherData } from './types/api';
 import fetchWeatherData from './utils/fetch-weather-data';
 import convertUnits from './utils/convert-units';
@@ -12,20 +12,23 @@ function App() {
   const [search, setSearch] = useState('Dallas, Texas');
   const [unit, setUnit] = useState<'F' | 'C'>('F');
   const [errorMessage, setErrorMessage] = useState('');
-  const queryClient = useQueryClient();
   const { data: weatherCall, isFetching } = useQuery<OneWeatherCall, Error>({
     queryKey: ['weather', search],
-    queryFn: (): Promise<OneWeatherCall> => fetchWeatherData(search),
+    queryFn: async (): Promise<OneWeatherCall> => {
+      try {
+        const weatherData = await fetchWeatherData(search);
+        setErrorMessage('');
+        return weatherData;
+      } catch (e) {
+        if (!weatherCall)
+          throw new Error('API is down, please try again later');
+        setErrorMessage('city not found');
+        return weatherCall;
+      }
+    },
     refetchOnWindowFocus: false,
     retry: false,
     keepPreviousData: true,
-    onError(error) {
-      queryClient.setQueriesData(['weather', search], weatherCall);
-      setErrorMessage(error.message);
-    },
-    onSuccess() {
-      setErrorMessage('');
-    },
   });
 
   const weatherData: undefined | WeatherData = useMemo(() => {
