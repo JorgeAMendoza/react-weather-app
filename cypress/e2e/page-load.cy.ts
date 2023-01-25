@@ -12,7 +12,6 @@ describe('initial page load', () => {
     ).as('api');
     cy.visit('/');
     cy.get('[data-cy="unitButton"]').as('unitButton');
-    cy.get('[data-cy="searchButton"]').as('searchButton');
     cy.get('[data-cy="citySearch"]').as('citySearch');
     cy.get('[data-cy="forecastWeather"]').as('forecastContainer');
     cy.get('[data-cy="currentWeather"]').as('currentWeather');

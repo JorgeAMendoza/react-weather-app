@@ -74,9 +74,9 @@ function App() {
       ) : null}
 
       {weatherData ? (
-        <section data-cy="forecastWeather">
+        <section>
           <Styled.ForecastTitle>Five Day Forecast</Styled.ForecastTitle>
-          <Styled.ForecastContainer>
+          <Styled.ForecastContainer data-cy="forecastWeather">
             {weatherData.weekForecast.map((forecast, i) => (
               <Forecast
                 key={i}
