@@ -1,0 +1,77 @@
+{
+  "data": {
+    "city": "Dallas",
+    "location": "TX",
+    "current": {
+      "temp": 277.54,
+      "min_temp": 277.54,
+      "max_temp": 288.58,
+      "feels_like": 275.27,
+      "humidity": 81,
+      "wind_speed": 2.57
+    },
+    "weather": {
+      "id": 801,
+      "main": "Clouds",
+      "description": "few clouds",
+      "icon": "02d"
+    },
+    "weekForecast": [
+      {
+        "temp": { "day": 286.92, "min": 282.5, "max": 289.37 },
+        "humidity": 32,
+        "weather": {
+          "id": 803,
+          "main": "Clouds",
+          "description": "broken clouds",
+          "icon": "04d"
+        },
+        "date": "January 1st"
+      },
+      {
+        "temp": { "day": 290.89, "min": 283.53, "max": 294.34 },
+        "humidity": 52,
+        "weather": {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds",
+          "icon": "03d"
+        },
+        "date": "January 2nd"
+      },
+      {
+        "temp": { "day": 291.47, "min": 287.89, "max": 292.6 },
+        "humidity": 23,
+        "weather": {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds",
+          "icon": "02d"
+        },
+        "date": "January 3rd"
+      },
+      {
+        "temp": { "day": 287.28, "min": 283.38, "max": 289.62 },
+        "humidity": 36,
+        "weather": {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        },
+        "date": "January 4th"
+      },
+      {
+        "temp": { "day": 289.07, "min": 282.84, "max": 292.13 },
+        "humidity": 38,
+        "weather": {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        },
+        "date": "January 5th"
+      }
+    ]
+  }
+}
