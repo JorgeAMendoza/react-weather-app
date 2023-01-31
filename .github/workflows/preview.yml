@@ -16,10 +16,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '18'
-      - name: lint
-        run: npm run lint
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
+      - name: lint
+        run: npm run lint
       - name: E2E on chrome
         uses: cypress-io/github-action@v4.2.0
         with:
