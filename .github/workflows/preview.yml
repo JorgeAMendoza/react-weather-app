@@ -18,6 +18,8 @@ jobs:
           node-version: '18'
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
+      - name: npm install
+        run: npm ci
       - name: lint
         run: npm run lint
       - name: E2E on chrome
