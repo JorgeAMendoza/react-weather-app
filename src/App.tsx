@@ -7,12 +7,18 @@ import convertUnits from './utils/convert-units';
 import CurrentWeather from './components/CurrentWeather/CurrentWeather';
 import Forecast from './components/Forecast/Forecast';
 import Styled from './App.styled';
+import loadingSpinner from './assets/imgs/loading-circle.gif';
+import SpinningSun from './components/SpinningSun/SpinningSun';
 
 function App() {
   const [search, setSearch] = useState('Dallas, Texas');
   const [unit, setUnit] = useState<'F' | 'C'>('F');
   const [errorMessage, setErrorMessage] = useState('');
-  const { data: weatherCall, isFetching } = useQuery<OneWeatherCall, Error>({
+  const {
+    data: weatherCall,
+    isFetching,
+    isLoading,
+  } = useQuery<OneWeatherCall, Error>({
     queryKey: ['weather', search],
     queryFn: async (): Promise<OneWeatherCall> => {
       try {
@@ -71,7 +77,9 @@ function App() {
           current={weatherData.current}
           weather={weatherData.weather}
         />
-      ) : null}
+      ) : (
+        <SpinningSun />
+      )}
 
       {weatherData ? (
         <section>
