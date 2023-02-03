@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - production
+    
 
 jobs:
   Deploy-Preview:
