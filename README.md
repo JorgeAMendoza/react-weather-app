@@ -4,13 +4,13 @@
 
 The goal of the project is to create a working, web-based weather application that allows users to search for the current weather and the five-day forecast of a specific city around the world.
 
-Three of the goals I aimed to achieve with this project include:
+Three goals I aimed to achieve with this project include:
 
-1. Using servless functions to act as a proxy between the application and API to ensure that no API keys are exposed on the client.
-2. Thoroughly test the application to ensure that no errors are deployed in the production build.
-3. Make the application accessible as possible, ensuring that those with disablities can easily search for the weather in this application.
+1. Use servless functions to act as a proxy between the application and API to ensure that no API keys are exposed through client.
+2. Thoroughly test the application to ensure no errors are deployed.
+3. Make the application accessible as possible, ensuring that those with disablities can easily search for the weather as well.
 
-The application was built previously using basic react with no TypeScript, after improving my skills and working on multiple projects, I decided to revisit the project and improve upon it with the new skills and tools I have learned up to this point. You can find the original version of the project under the branch titled ["app-version-1"](https://github.com/JorgeAMendoza/react-weather-app/tree/app-version-1)
+The application was previously built using basic react with no TypeScript. After improving my skills and working on multiple projects, I decided to revisit the project and improve upon it with the new skills and tools I have learned up to this point. You can find the original version of the project under the branch titled ["app-version-1"](https://github.com/JorgeAMendoza/react-weather-app/tree/app-version-1)
 
 API used to retrieve weather provided by [OpenWeather](https://openweathermap.org/api), both versions of the application use the 2.0 version of the One Call API. **Version 2.0 of the the API can no longer be signed up for**.
 
@@ -19,14 +19,15 @@ Three improvements I wanted to focus on was:
 1. Fetching and handling data more efficiently with state-management tools.
 2. Component structure and project organization, I wanted to make it clear to people reading the code how the component worked and why it was structured like so.
 3. Better use of the styled-components library.
+4. Testing the application.
 
 ## Techstack Used
 
-Project was bootstrapped with [Vite](https://vitejs.dev/guide/) using the React/Typescript template. The project is linted with [Eslint](https://eslint.org/docs/latest/user-guide/getting-started) using react,prettier,cypress, and accessibility rules. Please see the `.eslintrc` file for all the linting rules used in this project.
+This Project was bootstrapped with [Vite](https://vitejs.dev/guide/) using the React/Typescript template. The project is linted with [Eslint](https://eslint.org/docs/latest/user-guide/getting-started) using react, prettier, cypress, and the [jsx-a11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y) rules. Please see the `.eslintrc` file for all the linting rules used in this project.
 
 The following are the main tools used to create the application:
 
-- [React](https://reactjs.org/docs/getting-started.html), a JavaScript library for building user interfaces. TypeScript is used in favor or JavaScript.
+- [React](https://reactjs.org/docs/getting-started.html), a JavaScript library for building user interfaces.
 - [Tanstack Query](https://tanstack.com/query/v4/docs/react/overview), a state management tools for queries made in the application.
 - [Cypress](https://docs.cypress.io/guides/overview/why-cypress#What-you-ll-learn), front end testing tool for writing unit and integration test.
 
@@ -58,18 +59,18 @@ This section will review some of the main changes I made to the application and 
 
 ### Fetching Weather Data
 
-I structured the application in a way so that one API call would be made for the application, and the results would be passed down to the various components that need to display data. I attempted to create a presentional/container component structure. So `App.js` would be in charge of holidng multiple instances of state and calling a function that retrives weather data and set the values of multiple states. This data would then be passed down to components to be displayed.
+I orginally structured the application so that one API call would be made and the results would be passed down to the various components that needed to display data. I attempted to create a presentional/container component structure. So `App.js` would be in charge of holidng multiple instances of state and calling a function that retrives weather data and set the values of multiple states. This data would then be passed down to components to be displayed.
 
-Some issues I have with approach include:
+Some issues I have wite this approach include:
 
-1. **Too many instances of state**, there should be a way to cutdown on how many times I use `useState` by deriving data from one piece of data/state.
-2. **Weather data fetch lives in component**, on every re-render we are creating the function again, the function should be able to live outside the component, taking in a search query and just returning the data needed.
-3. **Error handling**, there is no direct error handling, we do catch an error but all we do is set a message on the screen and thats it. Errors should include more information so they can be handled more appropriately.
-4. **Exposed API**, it was not until recently when I was reviewing the application that I noticed that the API key was being exposed upon every request since it was being directly attached to the request itself. We need a proxy that asks for the weather information, and this proxy should be the one directly communicating with the API with the private key.
+1. **Too many instances of state**, there are multiple instances of state that are not needed. For example, the `searchLocation` state is only used to display the location of the weather data, but the data is already stored in the `currentWeather` state. The `searchQuery` state is only used to make the API call, but the data is already stored in the `currentWeather` state.
+2. **Weather data fetch lives in component**, on every re-render we are creating the function again, the function should be able to live outside the component, taking in a search query and returning the data needed.
+3. **Error handling**, there is no direct error handling, errors are caught with `.catch()` but all it does is set a message.
+4. **Exposed API**, in the orginal verion of the application the API key was being exposed with every request because the key is was part of the query.
 
 Original `App.tsx` logic for retrieving and setting weather data:
 
-```
+```typescript
 function App() {
   const [searchQuery, setSearchQuery] = useState('Dallas, TX');
   const [unit, setUnit] = useState('F');
@@ -123,41 +124,50 @@ function App() {
     setCurrentWeather(Object.assign(currentWeather, newCurrentTemps));
     setForecastWeather(newForecastTemps);
   };
+}
 ```
 
-## Improvement
+### Improvement
 
-After delving deeper in React in the later months and learning various patterns and tools, some of the improvements that were made include:
+After delving deeper in React and learning various patterns and tools, some of the improvements that were made include the following.
 
-1. **Query state management**, using tanstack query, the `useQuery` hook can handle the state of the request made, based on the props and configuration, if a user searches for invalid data, instead of removing the last succesfull search, we ensure that the previous serach data stays on page and ensure to not cache the bad search. If a user enters a query that was already made, instead of making the request to the api, a cached version of that request is used instead.
+#### Query State Management
 
-```
-const {
-    data: weatherCall,
-    isFetching,
-  } = useQuery<OneWeatherCall, Error>({
-    queryKey: ['weather', search],
-    queryFn: async (): Promise<OneWeatherCall> => {
-      try {
-        const weatherData = await fetchWeatherData(search);
-        setErrorMessage('');
-        return weatherData;
-      } catch (e) {
-        if (!weatherCall)
-          throw new Error('API is down, please try again later');
-        setErrorMessage('city not found');
-        return weatherCall;
-      }
-    },
-    refetchOnWindowFocus: false,
-    retry: false,
-    keepPreviousData: true,
-  });
+Using tanstack query, the `useQuery` hook can handle the state of the request made based on the props and configuration passed in. If a user searches for invalid data, instead of removing the last successful search, the hook ensures that the previous search data stays on page. When a user enters a query that was already made, instead of making the request to the api, cached results of the request are displayed.
+
+```typescript
+const { data: weatherCall, isFetching } = useQuery<OneWeatherCall, Error>({
+  queryKey: ['weather', search],
+  queryFn: async (): Promise<OneWeatherCall> => {
+    try {
+      const weatherData = await fetchWeatherData(search);
+      setErrorMessage('');
+      return weatherData;
+    } catch (e) {
+      if (!weatherCall) throw new Error('API is down, please try again later');
+      setErrorMessage('city not found');
+      return weatherCall;
+    }
+  },
+  refetchOnWindowFocus: false,
+  retry: false,
+  keepPreviousData: true,
+});
 ```
 
-2. **Vercel Serverless Function**, instead of directly sending request to the Open Weather API, a new Vercel Serverless function is created which makes the request for the browser and returns the results. With this, our API key can stay secured from the browser, and let the serverless function handle structuring and organzing the data before it reaches the client.
+Some aspects of the hook above include:
 
-```
+- A query will not be made if the user focuses back on the page.
+- If the query fails, the previous data will be used instead.
+- Using a try/catch block in the query function, an error message is set on an error.
+
+#### Vercel Serverless Function
+
+Instead of directly sending request to the Open Weather API, a Vercel Serverless function is used which acts as a proxy for the request and returns the results from the API to the browser. The API key will now live on the serverless function and not on the client, which ensures that the API key is not exposed to the public.
+
+Below is part of the code for the serverless function.
+
+```typescript
 export default async function fetchWeather(request, response) {
   const geoDataAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${request.query.location}&limit=1&appid=${process.env.API_KEY}`;
 
@@ -178,9 +188,13 @@ export default async function fetchWeather(request, response) {
   ...
 ```
 
-3. **TypeScript**, Typescript allows me to safely type the error/data from useQuery, ensuring that I am not attempting to grab properties from data that does not exist/is not what I expect. I am able to cleany type the API response and safely access the response data.
+#### Typescript
 
-```
+Using Typescript, the results of the query function, its properties, and error can be typed to avoid mistakenly grabbing values that do not exist or avoid grabbing a potentially undefined object. The API response is typed as well to ensure that the data is extracted correctly.
+
+Below is the type information for the API response.
+
+```typescript
 export interface OneWeatherCall {
   data: WeatherData;
 }
@@ -223,33 +237,118 @@ export interface DailyWeather {
 }
 ```
 
-4. **Deriving from State**, Instead of extracting the forecast and current weather data from the query response and setting to another state, I decided to create a function that will create one object that contains both current and weather forecast, which is then passed to the `CurrentWeather` and `Forecast` component. This function will only run when we get new data or when the unit state is changed.
+#### Derived State
 
-```
+Instead of extracting the forecast and current weather data from the query response and setting that to another state, a fucntion is created that initializes an object which contains both current and forecast weather data. This is then passed to the `CurrentWeather` and `Forecast` components.
+
+```typescript
 const weatherData: undefined | WeatherData = useMemo(() => {
-    if (!weatherCall) return undefined;
-    const { current, weekForecast } = convertUnits(
-      weatherCall.data.current,
-      weatherCall.data.weekForecast,
-      unit
-    );
-    return {
-      city: weatherCall.data.city,
-      location: weatherCall.data.location,
-      weather: weatherCall.data.weather,
-      weekForecast,
-      current,
-    };
-  }, [weatherCall, unit]);
+  if (!weatherCall) return undefined;
+  const { current, weekForecast } = convertUnits(
+    weatherCall.data.current,
+    weatherCall.data.weekForecast,
+    unit
+  );
+  return {
+    city: weatherCall.data.city,
+    location: weatherCall.data.location,
+    weather: weatherCall.data.weather,
+    weekForecast,
+    current,
+  };
+}, [weatherCall, unit]);
+
+...
+
+{weatherData ? (
+        <CurrentWeather
+          city={weatherData.city}
+          location={weatherData.location}
+          current={weatherData.current}
+          weather={weatherData.weather}
+        />
+      ) : (
+        <SpinningSun />
+      )}
+
+      {weatherData ? (
+        <section>
+          <Styled.ForecastTitle>Five Day Forecast</Styled.ForecastTitle>
+          <Styled.ForecastContainer data-cy="forecastWeather">
+            {weatherData.weekForecast.map((forecast, i) => (
+              <Forecast
+                key={i}
+                temp={forecast.temp}
+                weather={forecast.weather}
+                date={forecast.date}
+                day={forecast.day}
+              />
+            ))}
+          </Styled.ForecastContainer>
+        </section>
+      ) : null}
 ```
 
-### Other Improvements
+In the code block above, the `useMemo` hook is used call a function that creates the weather object. The `convertUnits` function is used to convert the units of the weather data based on the unit state, and this `weatherData` object is then passed to the components that require its information.
 
-Aside from the main improvements listed above, I also used Cypress to test the application. While running test, instead of directly contacting the API (variable response time), I instead intercept the request and return a fixture with contains some "dummy" data to insert. I wanted to these test focus on the client user-intercation rather than the API response.
+`useMemo` is used to avoid uncessarily executing the function when it is not required. In the original version of the application, any state change made caused the function run, even if the state change did not affect the function. Though the original implemetation did not cause major performance issues, it is still a good practice to avoid uncessary function calls.
 
-In the original project I created a new style component for each element that I wanted styled. Instead of that, I created the multiple components into the one file for the main component being styled, then default exported one object which contained all these styled components.
+#### Cypress Testing
 
+End-to-end test were created using the Cypress testing library. When a test makes an API request, instead of directly contacting the API (variable response time and data), the request is intercepted and a fixture is returned which contains "fake" weather data to insert. I wanted to these test focus on the client user-intercation rather than the API response itself.
+
+Below is an example of a test which ensures the inital weather call on page load is successful.
+
+```typescript
+describe('initial page load', () => {
+  beforeEach(() => {
+    cy.intercept(
+      'GET',
+      'http://localhost:3000/api/weather?location=Dallas,+Texas',
+      {
+        statusCode: 200,
+        fixture: 'dallas.json',
+      }
+    ).as('api');
+    cy.visit('/');
+    cy.get('[data-cy="unitButton"]').as('unitButton');
+    cy.get('[data-cy="citySearch"]').as('citySearch');
+    cy.get('[data-cy="forecastWeather"]').as('forecastContainer');
+    cy.get('[data-cy="currentWeather"]').as('currentWeather');
+    cy.get('[data-cy="location"]').as('location');
+    cy.get('[data-cy="currentTemperature"]').as('currentTemperature');
+    cy.get('[data-cy="currentLowTemp"]').as('currentLowTemp');
+    cy.get('[data-cy="currentHighTemp"]').as('currentHighTemp');
+    cy.get('[data-cy="windSpeed"]').as('windSpeed');
+    cy.get('[data-cy="humidity"]').as('humidity');
+    cy.get('[data-cy="currentWeatherIcon"]').as('currentWeatherIcon');
+  });
+
+  it('unit button begins in metric system, Fahrenheit', () => {
+    cy.get('@unitButton').should('contain.text', 'F');
+  });
+
+  it('current weather data for dallas,texas is displayed in imperial units', () => {
+    cy.get('@location').should('contain.text', 'Dallas, TX');
+    cy.get('@currentTemperature').should('contain.text', '40°');
+    cy.get('@currentLowTemp').should('contain.text', '40°');
+    cy.get('@currentHighTemp').should('contain.text', '60°');
+    cy.get('@windSpeed').should('contain.text', '6mph');
+    cy.get('@humidity').should('contain.text', '81%');
+    cy.get('@currentWeatherIcon')
+      .should('have.attr', 'src')
+      .should('include', 'day-partly-cloudy');
+  });
+});
 ```
+
+`cy.intercept` is the method that ensures that the request is intercepted and the fixture is returned. The fixture is located in the `cypress/fixtures` folder.
+
+#### Styled Components
+
+Like in the original version of the application, Styled Components is used here as well. Instead of creating multiple styled components and importing them into the component, an object containing all the styled components is default exported and imported into the component. This avoids importing multiple components into the object which allows for cleaner code.
+
+```typescript
 ---CurrentWeather.styled.tsx---
 export default {
   CurrentWeather,
@@ -278,8 +377,10 @@ import Styled from './CurrentWeather.styled';
       ...
 ```
 
-## Conclustion
+The code block above shows that the `CurrentWeather.styled.tsx` component exports one object, and the `CurrentWeather` component uses the name `Styled` to access the styled components.
 
-It was refreshing to go back to the original version, see what could be improved, and make those improvements. I am sure that there are more improvements and changes that could be made, and if you find some please feel to fork the project and let me know.
+## Conclusion
 
-If you have any questions, please contact me at <jmendozaiidev@gmail.com>.
+It was refreshing to go back to the original version, examine what should be improved, and implement those changes. There are still other improvements that could be made to this application, but in its current state it is something I can be proud of. If you find any issues with the application, please feel free to open an issue or submit a pull request.
+
+If you have any questions or just want to chat, please contact me at <jmendozaiidev@gmail.com>.
