@@ -133,6 +133,7 @@ export default async function fetchWeather(request, response) {
         dateWithOrdinal = `${numberDate}th`;
     }
 
+    const dayString = day[date.getDay()];
     date.setDate(date.getDate() + 1);
     return {
       temp: {
@@ -142,7 +143,7 @@ export default async function fetchWeather(request, response) {
       },
       humidity: forecast.humidity,
       weather: forecast.weather[0],
-      day: day[date.getDay()],
+      day: dayString,
       date: `${month[date.getMonth()]} ${dateWithOrdinal}`,
     };
   });
